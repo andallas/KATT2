@@ -11,6 +11,7 @@ public class Health : MonoBehaviour
 
         if(healthPoints <= 0)
         {
+            SpecialFXHelper.Instance.Explosion(transform.position);
             Destroy(gameObject);
         }
     }
