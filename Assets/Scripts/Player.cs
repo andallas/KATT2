@@ -5,6 +5,16 @@ public class Player : MonoBehaviour
     public float speed;
 
     private Vector2 movement;
+    private Transform _transform;
+    private float halfWidth;
+    private float halfHeight;
+
+    void Start()
+    {
+        _transform = transform;
+        halfWidth = renderer.bounds.size.x / 2;
+        halfHeight = renderer.bounds.size.y / 2;
+    }
 
     void Update()
     {
@@ -25,6 +35,18 @@ public class Player : MonoBehaviour
                 weapon.Attack(false);
             }
         }
+
+        Camera mainCamera = Camera.main;
+
+        float distance = (_transform.position - mainCamera.transform.position).z;
+        float leftBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, distance)).x;
+        float rightBorder = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, distance)).x;
+        float topBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, distance)).y;
+        float bottomBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 1, distance)).y;
+
+        _transform.position = new Vector3(Mathf.Clamp(_transform.position.x, leftBorder + halfWidth, rightBorder - halfWidth),
+                                         Mathf.Clamp(_transform.position.y, topBorder + halfHeight, bottomBorder - halfHeight),
+                                         _transform.position.z);
     }
 
     void FixedUpdate()

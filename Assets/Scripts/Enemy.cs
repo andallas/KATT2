@@ -3,20 +3,55 @@
 public class Enemy : MonoBehaviour
 {
     private Weapon[] weapons;
+    private bool hasSpawn;
+    private Move movement;
 
     void Awake()
     {
         weapons = GetComponents<Weapon>();
+        movement = GetComponent<Move>();
+    }
+
+    void Start()
+    {
+        Enable(false);
     }
 
     void Update()
     {
-        foreach(Weapon weapon in weapons)
+        if (!hasSpawn)
         {
-            if (weapon != null && weapon.CanAttack)
+            if (renderer.IsVisibleFrom(Camera.main))
             {
-                weapon.Attack(true);
+                Enable(true);
             }
+        }
+        else
+        {
+            foreach (Weapon weapon in weapons)
+            {
+                if (weapon != null && weapon.CanAttack)
+                {
+                    weapon.Attack(true);
+                }
+            }
+
+            if (!renderer.IsVisibleFrom(Camera.main))
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    private void Enable(bool enable)
+    {
+        hasSpawn = enable;
+        collider2D.enabled = enable;
+        movement.enabled = enable;
+
+        foreach (Weapon weapon in weapons)
+        {
+            weapon.enabled = enable;
         }
     }
 }
