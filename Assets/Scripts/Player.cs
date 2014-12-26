@@ -30,9 +30,10 @@ public class Player : MonoBehaviour
         if(shoot)
         {
             Weapon weapon = GetComponent<Weapon>();
-            if(weapon != null)
+            if(weapon != null && weapon.CanAttack)
             {
                 weapon.Attack(false);
+                SoundFXHelper.Instance.MakePlayerShotSound();
             }
         }
 
