@@ -12,6 +12,8 @@ GameObject:
   - 60: {fileID: 6086804}
   - 50: {fileID: 5025038}
   - 114: {fileID: 11426932}
+  - 114: {fileID: 11457518}
+  - 114: {fileID: 11404428}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -65,6 +67,19 @@ PolygonCollider2D:
       - {x: .0806244314, y: .370483875}
       - {x: -.0839978009, y: .371864408}
       - {x: -.110799901, y: .112595707}
+--- !u!114 &11404428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04a964948ab2d6b41a273ff0b80a1734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shotPrefab: {fileID: 159474, guid: df31ba14bd92d794990336b1c77ce83b, type: 2}
+  fireRate: .25
 --- !u!114 &11426932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -77,6 +92,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+--- !u!114 &11457518
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee7f76f0373626a43a460deb5b368826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPoints: 1
+  isEnemy: 0
 --- !u!212 &21245108
 SpriteRenderer:
   m_ObjectHideFlags: 1
