@@ -19,6 +19,11 @@ public class SplashScreen : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetButton("Cancel"))
+        {
+            LoadGame();
+        }
+
         if (changeScene)
         {
             StartCoroutine("LoadMainMenu");

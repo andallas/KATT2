@@ -8,6 +8,7 @@ public class Scroll : MonoBehaviour
     public Vector2 direction = new Vector2(-1, 0);
     public bool isLinkedToCamera = false;
     public bool isLooping = false;
+    public bool isRandom = false;
 
     private List<Transform> backgroundPart;
 
@@ -45,20 +46,41 @@ public class Scroll : MonoBehaviour
 
         if (isLooping)
         {
-            Transform firstChild = backgroundPart.FirstOrDefault();
-
-            if (firstChild != null &&
-                firstChild.position.x < Camera.main.transform.position.x &&
-                !firstChild.renderer.IsVisibleFrom(Camera.main))
+            if(isRandom)
             {
-                Transform lastChild = backgroundPart.LastOrDefault();
-                Vector3 lastPosition = lastChild.transform.position;
-                Vector3 lastSize = (lastChild.renderer.bounds.max - lastChild.renderer.bounds.min);
+                Transform firstChild = backgroundPart.FirstOrDefault();
 
-                firstChild.position = new Vector3(lastPosition.x + lastSize.x, firstChild.position.y, firstChild.position.z);
+                if (firstChild != null &&
+                    firstChild.position.x < Camera.main.transform.position.x &&
+                    !firstChild.renderer.IsVisibleFrom(Camera.main))
+                {
+                    Vector3 screenSize = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+                    float widthOffset = Random.Range(0, screenSize.x);
+                    float heightOffset = Random.Range(0, screenSize.y);
 
-                backgroundPart.Remove(firstChild);
-                backgroundPart.Add(firstChild);
+                    firstChild.position = new Vector3(screenSize.x + widthOffset * 10, heightOffset * 2 - screenSize.y, firstChild.position.z);
+
+                    backgroundPart.Remove(firstChild);
+                    backgroundPart.Add(firstChild);
+                }
+            }
+            else
+            {
+                Transform firstChild = backgroundPart.FirstOrDefault();
+
+                if (firstChild != null &&
+                    firstChild.position.x < Camera.main.transform.position.x &&
+                    !firstChild.renderer.IsVisibleFrom(Camera.main))
+                {
+                    Transform lastChild = backgroundPart.LastOrDefault();
+                    Vector3 lastPosition = lastChild.transform.position;
+                    Vector3 lastSize = (lastChild.renderer.bounds.max - lastChild.renderer.bounds.min);
+
+                    firstChild.position = new Vector3(lastPosition.x + lastSize.x, firstChild.position.y, firstChild.position.z);
+
+                    backgroundPart.Remove(firstChild);
+                    backgroundPart.Add(firstChild);
+                }
             }
         }
     }
