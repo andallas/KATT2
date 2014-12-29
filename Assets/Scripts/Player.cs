@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
             if(weapon != null && weapon.CanAttack)
             {
                 weapon.Attack(false);
-                SoundFXHelper.Instance.MakePlayerShotSound();
+                AudioManager.Instance.PlaySFX("Player Laser");
             }
         }
 

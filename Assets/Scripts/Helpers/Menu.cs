@@ -7,10 +7,16 @@ public class Menu : MonoBehaviour
     public GameObject graphicsPanel;
     public GameObject audioPanel;
     public GameObject gamePanel;
+    public GameObject musicManager;
 
     void Start()
     {
         currentPanel = mainMenuPanel;
+        mainMenuPanel.SetActive(true);
+        optionsPanel.SetActive(false);
+        graphicsPanel.SetActive(false);
+        audioPanel.SetActive(false);
+        gamePanel.SetActive(false);
     }
 
     private GameObject currentPanel;
@@ -45,5 +51,10 @@ public class Menu : MonoBehaviour
             break;
         }
         currentPanel.SetActive(true);
+    }
+
+    public void MuteMusic()
+    {
+        
     }
 }

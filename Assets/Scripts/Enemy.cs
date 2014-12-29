@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
                 if (weapon != null && weapon.CanAttack)
                 {
                     weapon.Attack(true);
-                    SoundFXHelper.Instance.MakeEnemyShotSound();
+                    AudioManager.Instance.PlaySFX("Enemy Laser");
                 }
             }
 

@@ -12,7 +12,7 @@ public class Health : MonoBehaviour
         if(healthPoints <= 0)
         {
             SpecialFXHelper.Instance.Explosion(transform.position);
-            SoundFXHelper.Instance.MakeExplosionSound();
+            AudioManager.Instance.PlaySFX("Explosion");
             Destroy(gameObject);
         }
     }
