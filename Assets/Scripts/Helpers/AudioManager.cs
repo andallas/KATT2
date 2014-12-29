@@ -58,6 +58,7 @@ public class AudioManager : MonoBehaviour
     private bool source1Active = true;
     private bool isMuted = false;
     private float fadeTime = 2.0f;
+    private bool isFading = false;
     private float _masterVolume = 1.0f;
     private float _sfxVolume = 1.0f;
     private float _bgmVolume = 1.0f;
@@ -101,15 +102,14 @@ public class AudioManager : MonoBehaviour
             currentTrack = track.title;
             if(source1.isPlaying)
             {
-                CrossFade(source1, source2, track.clip);
-                source1Active = false;
+                
+                StartCoroutine(CrossFade(source1, source2, track.clip));
             }
             else
             {
                 source1.clip = track.clip;
                 source1.volume = bgmVolume * masterVolume;
                 source1.Play();
-                source1Active = true;
             }
         }
         else
@@ -117,7 +117,7 @@ public class AudioManager : MonoBehaviour
             currentTrack = track.title;
             if (source2.isPlaying)
             {
-                CrossFade(source2, source1, track.clip);
+                StartCoroutine(CrossFade(source2, source1, track.clip));
             }
             else
             {
@@ -126,6 +126,21 @@ public class AudioManager : MonoBehaviour
                 source2.Play();
             }
         }
+    }
+
+    public void PlayNextTrack()
+    {
+        PlayBGM(GetNextTrack().title);
+    }
+
+    public void PlayLastTrack()
+    {
+        PlayBGM(GetLastTrack().title);
+    }
+
+    public void PlayRandomTrack()
+    {
+        PlayBGM(GetRandomTrack().title);
     }
 
     public void Pause()
@@ -137,6 +152,41 @@ public class AudioManager : MonoBehaviour
     {
         isMuted = !isMuted;
         AudioListener.volume = isMuted ? 0.0f : masterVolume;
+    }
+
+    private IEnumerator CrossFade(AudioSource oldSource, AudioSource newSource, AudioClip clip)
+    {
+        if (isFading)
+        {
+            yield return new WaitForSeconds(fadeTime);
+            StartCoroutine(Fade(oldSource, newSource, clip));
+        }
+        else
+        {
+            StartCoroutine(Fade(oldSource, newSource, clip));
+        }
+    }
+
+    private IEnumerator Fade(AudioSource oldSource, AudioSource newSource, AudioClip clip)
+    {
+        isFading = true;
+        newSource.volume = 0.0f;
+        newSource.clip = clip;
+        newSource.Play();
+
+        float requestedVolume = bgmVolume * masterVolume;
+        float fadeLength = 0.0f;
+        while (fadeLength < 1.0f)
+        {
+            fadeLength += Time.deltaTime / fadeTime;
+            newSource.volume = requestedVolume * fadeLength;
+            oldSource.volume = oldSource.volume * (1.0f - fadeLength);
+            yield return new WaitForFixedUpdate();
+        }
+        source1Active = !source1Active;
+        newSource.volume = requestedVolume;
+        oldSource.Stop();
+        isFading = false;
     }
 
     private AudioList GetTrack(string clipName)
@@ -152,22 +202,24 @@ public class AudioManager : MonoBehaviour
         return track;
     }
 
-    private IEnumerator CrossFade(AudioSource oldSource, AudioSource newSource, AudioClip clip)
+    private AudioList GetNextTrack()
     {
-        newSource.volume = 0.0f;
-        newSource.clip = clip;
-        newSource.Play();
+        int index = BGM.FindIndex(a => a.title == currentTrack) + 1;
+        index = index >= BGM.Count ? 0 : index;
+        return BGM[index];
+    }
 
-        float requestedVolume = bgmVolume * masterVolume;
-        float fadeLength = 0.0f;
-        while(fadeLength < 1.0f)
-        {
-            fadeLength += Time.deltaTime / fadeTime;
-            newSource.volume = requestedVolume * fadeLength;
-            oldSource.volume = oldSource.volume * (1.0f - fadeLength);
-            yield return new WaitForFixedUpdate();
-        }
-        newSource.volume = requestedVolume;
-        oldSource.Stop();
+    private AudioList GetLastTrack()
+    {
+        int index = BGM.FindIndex(a => a.title == currentTrack) - 1;
+        index = index < 0 ? BGM.Count - 1 : index;
+        return BGM[index];
+    }
+
+
+    private AudioList GetRandomTrack()
+    {
+        int index = Random.Range(0, BGM.Count);
+        return BGM[index];
     }
 }

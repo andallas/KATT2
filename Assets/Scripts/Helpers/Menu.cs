@@ -7,7 +7,8 @@ public class Menu : MonoBehaviour
     public GameObject graphicsPanel;
     public GameObject audioPanel;
     public GameObject gamePanel;
-    public GameObject musicManager;
+
+    private GameObject currentPanel;
 
     void Start()
     {
@@ -18,8 +19,6 @@ public class Menu : MonoBehaviour
         audioPanel.SetActive(false);
         gamePanel.SetActive(false);
     }
-
-    private GameObject currentPanel;
 
 	public void StartGame()
     {
@@ -53,8 +52,4 @@ public class Menu : MonoBehaviour
         currentPanel.SetActive(true);
     }
 
-    public void MuteMusic()
-    {
-        
-    }
 }
