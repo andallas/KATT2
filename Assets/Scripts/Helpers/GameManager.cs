@@ -79,6 +79,10 @@ public class GameManager : MonoBehaviour
         _isPaused = false;
         _levelActive = true;
         InitObjectReferences();
+        Menu menu = UIManager.GetComponent<Menu>();
+        menu.CloseAllMenus();
+        menu.currentPanel = menu.GetPanel("Main Panel");
+
         Application.LoadLevel(1);
     }
 

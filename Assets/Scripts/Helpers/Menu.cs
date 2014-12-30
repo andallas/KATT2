@@ -6,12 +6,29 @@ public class Menu : MonoBehaviour
     public float masterVolume { set { AudioManager.Instance.masterVolume = value; } }
     public float sfxVolume { set { AudioManager.Instance.sfxVolume = value; } }
     public float bgmVolume { set { AudioManager.Instance.bgmVolume = value; } }
-    
-    public List<GameObject> menuList;
-    public bool startOpen = true;
 
-    private GameObject currentPanel;
+    public GameObject currentPanel { get { return _currentPanel; } set { _currentPanel = value; } }
+    public List<GameObject> menuList;
+
+    private GameObject _currentPanel;
     private Dictionary<string, GameObject> menuPanels;
+
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void OnLevelWasLoaded(int level)
+    {
+        if(level == 1)
+        {
+            currentPanel.SetActive(true);
+        }
+        else
+        {
+            CloseAllMenus();
+        }
+    }
 
     void Start()
     {
@@ -25,16 +42,11 @@ public class Menu : MonoBehaviour
         }
 
         currentPanel = menuList[0];
-
-        if (startOpen)
-        {
-            currentPanel.SetActive(true);
-        }
     }
 
-    public GameObject GetCurrentPanel()
+    public GameObject GetPanel(string menu)
     {
-        return currentPanel;
+        return menuPanels[menu];
     }
 
 	public void StartGame()
@@ -45,7 +57,7 @@ public class Menu : MonoBehaviour
     public void SwitchMenu(string menu)
     {
         currentPanel.SetActive(false);
-        currentPanel = menuPanels[menu];
+        currentPanel = GetPanel(menu);
         currentPanel.SetActive(true);
     }
 
@@ -59,6 +71,18 @@ public class Menu : MonoBehaviour
         foreach(KeyValuePair<string, GameObject> panel in menuPanels)
         {
             panel.Value.SetActive(false);
+        }
+    }
+
+    public void CloseOrSwitchToMain()
+    {
+        if(Application.loadedLevel == 1)
+        {
+            SwitchMenu("Main Panel");
+        }
+        else
+        {
+            CloseAllMenus();
         }
     }
 
