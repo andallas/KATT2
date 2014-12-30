@@ -8,8 +8,9 @@ public class GameManager : MonoBehaviour
     public int highScore { get { return _highScore; } }
     public int extraLives { get { return _extraLives; } }
 
-    public static GameManager Instance;
+    public static GameManager Instance { get { return _instance; } }
 
+    private static GameManager _instance = null;
     private bool _isPaused = false;
     private bool _levelActive = true;
     private int _score = 0;
@@ -23,14 +24,15 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null && gameObject.tag != "InstanceActive")
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
         {
             Destroy(gameObject);
         }
-
-        gameObject.tag = "InstanceActive";
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     void OnLevelWasLoaded(int level)
@@ -74,6 +76,9 @@ public class GameManager : MonoBehaviour
         }
         _score = 0;
         _extraLives = 3;
+        _isPaused = false;
+        _levelActive = true;
+        InitObjectReferences();
         Application.LoadLevel(1);
     }
 

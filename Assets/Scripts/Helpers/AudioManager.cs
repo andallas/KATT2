@@ -5,14 +5,13 @@ using System.Collections.Generic;
 public class AudioManager : MonoBehaviour
 {
     [System.Serializable]
-    public struct AudioList
+    public class AudioList
     {
         public string title;
         public AudioClip clip;
     }
 
-    public static AudioManager Instance;
-
+    public static AudioManager Instance { get { return _instance; } }
     public List<AudioList> SFX;
     public List<AudioList> BGM;
     public string currentTrack;
@@ -55,6 +54,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private static AudioManager _instance = null;
     private AudioSource source1;
     private AudioSource source2;
     private bool source1Active = true;
@@ -64,18 +64,19 @@ public class AudioManager : MonoBehaviour
     private float _masterVolume = 1.0f;
     private float _sfxVolume = 1.0f;
     private float _bgmVolume = 1.0f;
-    
-    
+
     void Awake()
     {
-        if (Instance != null && gameObject.tag != "InstanceActive")
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
         }
-
-        gameObject.tag = "InstanceActive";
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
