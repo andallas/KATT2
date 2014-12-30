@@ -53,12 +53,13 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+    public bool isMuted { get { return _isMuted; } }
 
     private static AudioManager _instance = null;
     private AudioSource source1;
     private AudioSource source2;
     private bool source1Active = true;
-    private bool isMuted = false;
+    private bool _isMuted = false;
     private float fadeTime = 2.0f;
     private bool isFading = false;
     private float _masterVolume = 1.0f;
@@ -194,8 +195,8 @@ public class AudioManager : MonoBehaviour
 
     public void Mute()
     {
-        isMuted = !isMuted;
-        AudioListener.volume = isMuted ? 0.0f : masterVolume;
+        _isMuted = !_isMuted;
+        AudioListener.volume = _isMuted ? 0.0f : masterVolume;
     }
 
     private IEnumerator CrossFade(AudioSource oldSource, AudioSource newSource, AudioClip clip)

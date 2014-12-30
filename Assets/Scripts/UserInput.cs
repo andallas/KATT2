@@ -2,19 +2,18 @@
 
 public class UserInput : MonoBehaviour
 {
-    public GameObject menuObject;
     private Menu menu;
 
     void Start()
     {
-        menu = menuObject.GetComponent<Menu>();
+        menu = GameObject.Find("~UIManager").GetComponent<Menu>();
     }
 
 	void Update()
     {
         if(Input.GetButtonDown("Cancel"))
         {
-            if(menu.GetCurrentPanel().activeSelf)
+            if(menu.currentPanel.activeSelf)
             {
                 GameManager.Instance.Pause();
                 menu.CloseAllMenus();
