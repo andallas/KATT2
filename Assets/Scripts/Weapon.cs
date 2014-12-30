@@ -14,9 +14,12 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if(shootCooldown > 0)
+        if (!GameManager.Instance.isPaused)
         {
-            shootCooldown -= Time.deltaTime;
+            if (shootCooldown > 0)
+            {
+                shootCooldown -= Time.deltaTime;
+            }
         }
     }
 

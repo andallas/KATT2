@@ -12,9 +12,11 @@ public class AudioManager : MonoBehaviour
     }
 
     public static AudioManager Instance;
+
     public List<AudioList> SFX;
     public List<AudioList> BGM;
     public string currentTrack;
+    public bool shuffle;
     public float masterVolume
     {
         get { return _masterVolume; }
@@ -66,11 +68,12 @@ public class AudioManager : MonoBehaviour
     
     void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && gameObject.tag != "InstanceActive")
         {
-            Debug.LogError("ERROR: Multiple instances of AudioManager.");
+            Destroy(gameObject);
         }
 
+        gameObject.tag = "InstanceActive";
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
@@ -80,6 +83,41 @@ public class AudioManager : MonoBehaviour
         source1 = gameObject.AddComponent<AudioSource>();
         source2 = gameObject.AddComponent<AudioSource>();
         PlayBGM(BGM[0].title);
+    }
+
+    void Update()
+    {
+        if(!GameManager.Instance.isPaused)
+        {
+            if(source1Active)
+            {
+                if(source1.time >= source1.clip.length)
+                {
+                    if(shuffle)
+                    {
+                        PlayRandomTrack();
+                    }
+                    else
+                    {
+                        PlayNextTrack();
+                    }
+                }
+            }
+            else
+            {
+                if (source2.time >= source2.clip.length)
+                {
+                    if (shuffle)
+                    {
+                        PlayRandomTrack();
+                    }
+                    else
+                    {
+                        PlayNextTrack();
+                    }
+                }
+            }
+        }
     }
 
     public void PlaySFX(string clipName)
@@ -134,6 +172,11 @@ public class AudioManager : MonoBehaviour
     }
 
     public void PlayLastTrack()
+    {
+        PlayBGM(GetLastPlayedTrack().title);
+    }
+
+    public void GoBackOneTrack()
     {
         PlayBGM(GetLastTrack().title);
     }
@@ -206,6 +249,21 @@ public class AudioManager : MonoBehaviour
     {
         int index = BGM.FindIndex(a => a.title == currentTrack) + 1;
         index = index >= BGM.Count ? 0 : index;
+        return BGM[index];
+    }
+
+    private AudioList GetLastPlayedTrack()
+    {
+        int index;
+        if(source2.clip && source1Active)
+        {
+            index = BGM.FindIndex(a => a.title == source2.clip.name);
+        }
+        else
+        {
+            index = BGM.FindIndex(a => a.title == source1.clip.name);
+        }
+        index = index < 0 ? BGM.Count - 1 : index;
         return BGM[index];
     }
 

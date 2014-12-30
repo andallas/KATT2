@@ -15,6 +15,13 @@ public class Move : MonoBehaviour
 
     void FixedUpdate()
     {
-        rigidbody2D.velocity = movement;
+        if (!GameManager.Instance.isPaused)
+        {
+            rigidbody2D.velocity = movement;
+        }
+        else
+        {
+            rigidbody2D.velocity = Vector2.zero;
+        }
     }
 }

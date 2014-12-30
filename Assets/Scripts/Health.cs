@@ -13,7 +13,14 @@ public class Health : MonoBehaviour
         {
             SpecialFXHelper.Instance.Explosion(transform.position);
             AudioManager.Instance.PlaySFX("Explosion");
-            Destroy(gameObject);
+            if(isEnemy)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                GameManager.Instance.LoseLife();
+            }
         }
     }
 

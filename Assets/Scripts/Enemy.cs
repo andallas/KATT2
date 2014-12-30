@@ -28,12 +28,15 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            foreach (Weapon weapon in weapons)
+            if(GameManager.Instance.levelActive && !GameManager.Instance.isPaused)
             {
-                if (weapon != null && weapon.CanAttack)
+                foreach (Weapon weapon in weapons)
                 {
-                    weapon.Attack(true);
-                    AudioManager.Instance.PlaySFX("Enemy Laser");
+                    if (weapon != null && weapon.CanAttack)
+                    {
+                        weapon.Attack(true);
+                        AudioManager.Instance.PlaySFX("Enemy Laser");
+                    }
                 }
             }
 

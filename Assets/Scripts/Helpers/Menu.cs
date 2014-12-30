@@ -1,23 +1,40 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class Menu : MonoBehaviour
 {
-    public GameObject mainMenuPanel;
-    public GameObject optionsPanel;
-    public GameObject graphicsPanel;
-    public GameObject audioPanel;
-    public GameObject gamePanel;
+    public float masterVolume { set { AudioManager.Instance.masterVolume = value; } }
+    public float sfxVolume { set { AudioManager.Instance.sfxVolume = value; } }
+    public float bgmVolume { set { AudioManager.Instance.bgmVolume = value; } }
+    
+    public List<GameObject> menuList;
+    public bool startOpen = true;
 
     private GameObject currentPanel;
+    private Dictionary<string, GameObject> menuPanels;
 
     void Start()
     {
-        currentPanel = mainMenuPanel;
-        mainMenuPanel.SetActive(true);
-        optionsPanel.SetActive(false);
-        graphicsPanel.SetActive(false);
-        audioPanel.SetActive(false);
-        gamePanel.SetActive(false);
+        menuPanels = new Dictionary<string, GameObject>();
+
+        int length = menuList.Count;
+        for (int i = 0; i < length; i++)
+        {
+            menuList[i].SetActive(false);
+            menuPanels.Add(menuList[i].name, menuList[i]);
+        }
+
+        currentPanel = menuList[0];
+
+        if (startOpen)
+        {
+            currentPanel.SetActive(true);
+        }
+    }
+
+    public GameObject GetCurrentPanel()
+    {
+        return currentPanel;
     }
 
 	public void StartGame()
@@ -28,28 +45,51 @@ public class Menu : MonoBehaviour
     public void SwitchMenu(string menu)
     {
         currentPanel.SetActive(false);
-        switch(menu)
-        {
-            case "mainMenu":
-                currentPanel = mainMenuPanel;
-            break;
-            case "options":
-                currentPanel = optionsPanel;
-            break;
-            case "graphics":
-                currentPanel = graphicsPanel;
-            break;
-            case "audio":
-                currentPanel = audioPanel;
-            break;
-            case "game":
-                currentPanel = gamePanel;
-            break;
-            default:
-                currentPanel = mainMenuPanel;
-            break;
-        }
+        currentPanel = menuPanels[menu];
         currentPanel.SetActive(true);
     }
 
+    public void CloseAllMenus()
+    {
+        if(GameManager.Instance.isPaused)
+        {
+            GameManager.Instance.Pause();
+        }
+
+        foreach(KeyValuePair<string, GameObject> panel in menuPanels)
+        {
+            panel.Value.SetActive(false);
+        }
+    }
+
+    public void Respawn()
+    {
+        GameManager.Instance.RespawnPlayer();
+    }
+
+    public void QuitToMainMenu()
+    {
+        GameManager.Instance.ResetGame();
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    // Audio
+    public void Mute()
+    {
+        AudioManager.Instance.Mute();
+    }
+
+    public void GoBackOneTrack()
+    {
+        AudioManager.Instance.GoBackOneTrack();
+    }
+
+    public void PlayNextTrack()
+    {
+        AudioManager.Instance.PlayNextTrack();
+    }
 }

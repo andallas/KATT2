@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class TrackText : MonoBehaviour
+public class MusicTrackHelper : MonoBehaviour
 {
     private string currentTrack;
     private Text nowPlaying;
@@ -10,14 +10,14 @@ public class TrackText : MonoBehaviour
     {
         currentTrack = AudioManager.Instance.currentTrack;
         nowPlaying = gameObject.GetComponent<Text>();
+        nowPlaying.text = currentTrack;
     }
 
     void Update()
     {
-        string curTrack = AudioManager.Instance.currentTrack;
-        if(currentTrack != curTrack)
+        if (currentTrack != AudioManager.Instance.currentTrack)
         {
-            currentTrack = curTrack;
+            currentTrack = AudioManager.Instance.currentTrack;
             nowPlaying.text = currentTrack;
         }
     }

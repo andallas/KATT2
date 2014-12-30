@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -18,36 +19,39 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        float inputX = Input.GetAxis("Horizontal");
-        float inputY = Input.GetAxis("Vertical");
-
-        movement = new Vector2(inputX, inputY) * speed;
-        movement = Vector2.ClampMagnitude(movement, speed);
-
-        bool shoot = Input.GetButton("Fire1");
-        shoot |= Input.GetButton("Fire2");
-
-        if(shoot)
+        if (GameManager.Instance.levelActive && !GameManager.Instance.isPaused)
         {
-            Weapon weapon = GetComponent<Weapon>();
-            if(weapon != null && weapon.CanAttack)
+            float inputX = Input.GetAxis("Horizontal");
+            float inputY = Input.GetAxis("Vertical");
+
+            movement = new Vector2(inputX, inputY) * speed;
+            movement = Vector2.ClampMagnitude(movement, speed);
+
+            bool shoot = Input.GetButton("Fire1");
+            shoot |= Input.GetButton("Fire2");
+
+            if (shoot)
             {
-                weapon.Attack(false);
-                AudioManager.Instance.PlaySFX("Player Laser");
+                Weapon weapon = GetComponent<Weapon>();
+                if (weapon != null && weapon.CanAttack)
+                {
+                    weapon.Attack(false);
+                    AudioManager.Instance.PlaySFX("Player Laser");
+                }
             }
+
+            Camera mainCamera = Camera.main;
+
+            float distance = (_transform.position - mainCamera.transform.position).z;
+            float leftBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, distance)).x;
+            float rightBorder = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, distance)).x;
+            float topBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, distance)).y;
+            float bottomBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 1, distance)).y;
+
+            _transform.position = new Vector3(Mathf.Clamp(_transform.position.x, leftBorder + halfWidth, rightBorder - halfWidth),
+                                             Mathf.Clamp(_transform.position.y, topBorder + halfHeight, bottomBorder - halfHeight),
+                                             _transform.position.z);
         }
-
-        Camera mainCamera = Camera.main;
-
-        float distance = (_transform.position - mainCamera.transform.position).z;
-        float leftBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, distance)).x;
-        float rightBorder = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, distance)).x;
-        float topBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, distance)).y;
-        float bottomBorder = mainCamera.ViewportToWorldPoint(new Vector3(0, 1, distance)).y;
-
-        _transform.position = new Vector3(Mathf.Clamp(_transform.position.x, leftBorder + halfWidth, rightBorder - halfWidth),
-                                         Mathf.Clamp(_transform.position.y, topBorder + halfHeight, bottomBorder - halfHeight),
-                                         _transform.position.z);
     }
 
     void FixedUpdate()
@@ -78,5 +82,11 @@ public class Player : MonoBehaviour
                 playerHealth.Damage(1);
             }
         }
+    }
+
+    public void DeathSequence()
+    {
+        gameObject.GetComponent<Renderer>().enabled = false;
+        gameObject.GetComponent<Collider2D>().enabled = false;
     }
 }
