@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a964948ab2d6b41a273ff0b80a1734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotPrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
+  projectilePrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
   fireRate: .75
 --- !u!114 &75402072
 MonoBehaviour:
@@ -491,7 +491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a964948ab2d6b41a273ff0b80a1734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotPrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
+  projectilePrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
   fireRate: .75
 --- !u!114 &135807880
 MonoBehaviour:
@@ -666,7 +666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a964948ab2d6b41a273ff0b80a1734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotPrefab: {fileID: 159474, guid: df31ba14bd92d794990336b1c77ce83b, type: 2}
+  projectilePrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
   fireRate: .25
 --- !u!114 &155891588
 MonoBehaviour:
@@ -1707,7 +1707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a964948ab2d6b41a273ff0b80a1734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotPrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
+  projectilePrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
   fireRate: .75
 --- !u!114 &1146798635
 MonoBehaviour:
@@ -2343,7 +2343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a964948ab2d6b41a273ff0b80a1734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotPrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
+  projectilePrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
   fireRate: .75
 --- !u!114 &1509817945
 MonoBehaviour:
@@ -2601,6 +2601,8 @@ GameObject:
   - 4: {fileID: 1696414955}
   - 114: {fileID: 1696414956}
   - 114: {fileID: 1696414957}
+  - 114: {fileID: 1696414958}
+  - 114: {fileID: 1696414959}
   m_Layer: 0
   m_Name: ~ScriptManager
   m_TagString: Untagged
@@ -2644,6 +2646,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fd2f70b6c4aaf04abe3b87f636bb894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1696414958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1696414954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d155b4fbd19d874c8474a919b50cfc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolSize: 10
+  poolMax: 0
+  goPrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
+--- !u!114 &1696414959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1696414954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a420bed330bf0a048bff99f0ffb99d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spritesheet:
+  - {fileID: 21300094, guid: cf96894a777d3f249809fe83f5906465, type: 3}
+  - {fileID: 21300098, guid: cf96894a777d3f249809fe83f5906465, type: 3}
 --- !u!1001 &1811816322
 Prefab:
   m_ObjectHideFlags: 0
@@ -2833,6 +2863,10 @@ Prefab:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 11404428, guid: cffe3d4ff0b5c8740a51da03a64bbf22, type: 2}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cffe3d4ff0b5c8740a51da03a64bbf22, type: 2}
   m_RootGameObject: {fileID: 155891581}

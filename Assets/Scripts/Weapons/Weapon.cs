@@ -2,7 +2,7 @@
 
 public class Weapon : MonoBehaviour
 {
-    public GameObject shotPrefab;
+    public GameObject projectilePrefab;
     public float fireRate = 0.25f;
 
     private float shootCooldown;
@@ -31,16 +31,16 @@ public class Weapon : MonoBehaviour
         {
             shootCooldown = fireRate;
 
-            GameObject shotObject = (GameObject)Instantiate(shotPrefab);
-            shotObject.transform.position = transform.position;
+            GameObject projectileObject = (GameObject)Instantiate(projectilePrefab);
+            projectileObject.transform.position = transform.position;
 
-            Beam shot = shotObject.GetComponent<Beam>();
-            if(shot != null)
+            Projectile projectile = projectileObject.GetComponent<Projectile>();
+            if (projectile != null)
             {
-                shot.isEnemyShot = isEnemy;
+                projectile.isEnemyShot = isEnemy;
             }
 
-            Move move = shotObject.GetComponent<Move>();
+            Move move = projectileObject.GetComponent<Move>();
             if(move != null)
             {
                 move.direction = isEnemy ? -this.transform.up : this.transform.up;
