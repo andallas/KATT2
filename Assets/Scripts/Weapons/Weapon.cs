@@ -61,7 +61,6 @@ public class Weapon : MonoBehaviour
             {
                 AudioManager.Instance.PlaySFX("Player Laser");
             }
-            
         }
     }
 }

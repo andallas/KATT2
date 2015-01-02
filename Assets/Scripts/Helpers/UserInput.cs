@@ -7,6 +7,10 @@ public class UserInput : MonoBehaviour
     void Start()
     {
         menu = GameObject.Find("~UIManager").GetComponent<Menu>();
+        if(menu == null)
+        {
+            Debug.LogError("ERROR: Could not find ~UIManager");
+        }
     }
 
 	void Update()
