@@ -2657,8 +2657,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d155b4fbd19d874c8474a919b50cfc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolSize: 10
-  poolMax: 0
+  poolSize: 50
+  poolMax: 500
   goPrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
 --- !u!114 &1696414959
 MonoBehaviour:
@@ -2671,9 +2671,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a420bed330bf0a048bff99f0ffb99d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spritesheet:
-  - {fileID: 21300094, guid: cf96894a777d3f249809fe83f5906465, type: 3}
-  - {fileID: 21300098, guid: cf96894a777d3f249809fe83f5906465, type: 3}
+  sprites:
+  - {fileID: 21300000, guid: a4f2c9f1e7c066540bffd2e956d6e3c0, type: 3}
+  - {fileID: 21300002, guid: a4f2c9f1e7c066540bffd2e956d6e3c0, type: 3}
+  - {fileID: 21300004, guid: a4f2c9f1e7c066540bffd2e956d6e3c0, type: 3}
+  - {fileID: 21300006, guid: a4f2c9f1e7c066540bffd2e956d6e3c0, type: 3}
+  - {fileID: 21300008, guid: a4f2c9f1e7c066540bffd2e956d6e3c0, type: 3}
+  - {fileID: 21300010, guid: a4f2c9f1e7c066540bffd2e956d6e3c0, type: 3}
+  - {fileID: 21300012, guid: a4f2c9f1e7c066540bffd2e956d6e3c0, type: 3}
+  - {fileID: 21300014, guid: a4f2c9f1e7c066540bffd2e956d6e3c0, type: 3}
+  - {fileID: 21300016, guid: a4f2c9f1e7c066540bffd2e956d6e3c0, type: 3}
+  - {fileID: 21300018, guid: a4f2c9f1e7c066540bffd2e956d6e3c0, type: 3}
+  - {fileID: 21300020, guid: a4f2c9f1e7c066540bffd2e956d6e3c0, type: 3}
+  - {fileID: 21300022, guid: a4f2c9f1e7c066540bffd2e956d6e3c0, type: 3}
 --- !u!1001 &1811816322
 Prefab:
   m_ObjectHideFlags: 0

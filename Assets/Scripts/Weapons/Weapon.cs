@@ -31,13 +31,18 @@ public class Weapon : MonoBehaviour
         {
             shootCooldown = fireRate;
 
-            GameObject projectileObject = (GameObject)Instantiate(projectilePrefab);
-            projectileObject.transform.position = transform.position;
+            GameObject projectileObject = ProjectilePool.Instance.Create(transform.position);
+
+            if(projectileObject == null)
+            {
+                return;
+            }
 
             Projectile projectile = projectileObject.GetComponent<Projectile>();
             if (projectile != null)
             {
                 projectile.isEnemyShot = isEnemy;
+                projectile.SetSprite();
             }
 
             Move move = projectileObject.GetComponent<Move>();
@@ -45,6 +50,18 @@ public class Weapon : MonoBehaviour
             {
                 move.direction = isEnemy ? -this.transform.up : this.transform.up;
             }
+
+            projectileObject.SetActive(true);
+
+            if(isEnemy)
+            {
+                AudioManager.Instance.PlaySFX("Enemy Laser");
+            }
+            else
+            {
+                AudioManager.Instance.PlaySFX("Player Laser");
+            }
+            
         }
     }
 }

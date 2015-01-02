@@ -30,8 +30,13 @@ public class SpriteManager : MonoBehaviour
         }
     }
 
-    public Sprite GetSprite(string name)
+    public Sprite GetSprite(int index)
     {
-        return sprites[System.Array.IndexOf(spriteNames, name)];
+        if(0 > index || index >= sprites.Length)
+        {
+            Debug.LogError("ERROR: Invalid sprite index: " + index + " - Returning index 0");
+            return sprites[0];
+        }
+        return sprites[index];
     }
 }

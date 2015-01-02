@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
                 if (weapon != null && weapon.CanAttack)
                 {
                     weapon.Attack(false);
-                    AudioManager.Instance.PlaySFX("Player Laser");
                 }
             }
 

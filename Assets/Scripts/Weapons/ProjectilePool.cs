@@ -7,10 +7,11 @@ public class ProjectilePool : MonoBehaviour
     public int poolSize;
     public int poolMax = 0;
     public GameObject goPrefab;
-    public ProjectilePool Instance { get { return _instance; } }
+    public static ProjectilePool Instance { get { return _instance; } }
 
     private List<GameObject> pool;
-    private ProjectilePool _instance;
+    private int poolTotal = 0;
+    private static ProjectilePool _instance;
 
     void Awake()
     {
@@ -25,7 +26,7 @@ public class ProjectilePool : MonoBehaviour
             Destroy(gameObject);
         }
 
-        poolMax = poolSize > poolMax ? poolSize : poolMax;
+        poolMax = poolMax != 0 && poolSize > poolMax ? poolSize : poolMax;
     }
 
     void Start()
@@ -33,29 +34,47 @@ public class ProjectilePool : MonoBehaviour
         pool = new List<GameObject>();
 
         // Create initial pool of objects
-        AddToPool(poolSize);
+        AddMoreToPool(poolSize);
+    }
+
+    public GameObject Create()
+    {
+        return Create(Vector3.zero);
+    }
+
+    public GameObject Create(Vector3 position)
+    {
+        GameObject go = GetFromPool(goPrefab);
+
+        if(go == null)
+        {
+            return null;
+        }
+
+        Transform transform = go.transform;
+        transform.localPosition = position;
+
+        return go;
     }
 
     public GameObject Create(GameObject prefab)
     {
-        return Create(prefab, Vector3.zero, Quaternion.identity);
+        return Create(prefab, Vector3.zero);
     }
 
-    public GameObject Create(GameObject prefab, Vector3 position, Quaternion rotation)
+    public GameObject Create(GameObject prefab, Vector3 position)
     {
         GameObject go = GetFromPool(prefab);
 
         Transform transform = go.transform;
         transform.localPosition = position;
-        transform.localRotation = rotation;
-        go.SetActive(true);
 
         return go;
     }
 
     public void Recycle(GameObject go)
     {
-        if(AddToPool(go) == null)
+        if (PutBackInPool(go) == null)
         {
             Destroy(go);
             return;
@@ -69,27 +88,28 @@ public class ProjectilePool : MonoBehaviour
         StartCoroutine(RecycleObject(go, seconds));
     }
 
-    private void AddToPool(int count)
+    private void AddMoreToPool(int count)
     {
         for (int i = 0; i < count; i++ )
         {
             // If poolMax is set to zero or a negative number, then there is no pool limit
-            if (poolMax > 0 && pool.Count + 1 > poolMax)
+            if (poolMax != 0 && poolTotal > poolMax)
             {
                 Debug.LogError("ERROR: Maximum pool size for ProjectilePool reached - " + poolMax + ".");
-                break;
+                return;
             }
 
             GameObject go = (GameObject)Instantiate(goPrefab);
             go.SetActive(false);
             pool.Add(go);
+            poolTotal++;
         }
     }
 
-    private GameObject AddToPool(GameObject prefab)
+    private GameObject AddOneToPool(GameObject prefab)
     {
         // If poolMax is set to zero or a negative number, then there is no pool limit
-        if (poolMax > 0 && pool.Count + 1 > poolMax)
+        if (poolMax != 0 && poolTotal > poolMax)
         {
             Debug.LogError("ERROR: Maximum pool size for ProjectilePool reached - " + poolMax + ".");
             return null;
@@ -98,6 +118,24 @@ public class ProjectilePool : MonoBehaviour
         GameObject go = (GameObject)Instantiate(prefab);
         go.SetActive(false);
         pool.Add(go);
+        poolTotal++;
+
+        return go;
+    }
+
+    private GameObject PutBackInPool(GameObject go)
+    {
+        // If poolMax is set to zero or a negative number, then there is no pool limit
+        if (poolMax != 0 && pool.Count > poolMax)
+        {
+            Debug.LogError("ajsdl;fkjas;ldfj");
+            return null;
+        }
+
+        go.SetActive(false);
+        pool.Add(go);
+        poolTotal++;
+
         return go;
     }
 
@@ -110,6 +148,7 @@ public class ProjectilePool : MonoBehaviour
     private GameObject GetFromPool(GameObject prefab)
     {
         GameObject go = null;
+
         if(pool.Count > 0)
         {
             go = pool[0];
@@ -117,7 +156,7 @@ public class ProjectilePool : MonoBehaviour
         }
         else
         {
-            go = AddToPool(prefab);
+            go = AddOneToPool(prefab);
         }
 
         return go;

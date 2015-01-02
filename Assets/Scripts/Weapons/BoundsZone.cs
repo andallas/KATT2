@@ -7,7 +7,7 @@ public class BoundsZone : MonoBehaviour
         Projectile projectile = other.gameObject.GetComponent<Projectile>();
         if (projectile != null)
         {
-            Destroy(projectile.gameObject);
+            ProjectilePool.Instance.Recycle(projectile.gameObject);
         }
     }
 }

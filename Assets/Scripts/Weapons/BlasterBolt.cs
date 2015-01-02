@@ -2,8 +2,8 @@
 
 public class BlasterBolt : Projectile
 {
-    private override void SetSprite()
+    public override void SetSprite()
     {
-        GetComponent<SpriteRenderer>().sprite = isEnemyShot ? SpriteManager.Instance.GetSprite("redBlasterBolt") : SpriteManager.Instance.GetSprite("greenBlasterBolt");
+        GetComponent<SpriteRenderer>().sprite = isEnemyShot ? SpriteManager.Instance.GetSprite((int)BeamColor.red) : SpriteManager.Instance.GetSprite((int)BeamColor.green);
     }
 }
