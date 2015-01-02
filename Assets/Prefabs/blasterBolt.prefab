@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11456980}
   - 114: {fileID: 11481636}
   m_Layer: 0
-  m_Name: enemyShot
+  m_Name: blasterBolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159474}
   m_LocalRotation: {x: 0, y: 0, z: .707106829, w: .707106829}
-  m_LocalPosition: {x: -4.17000008, y: -.00999999978, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -56,8 +56,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Size: {x: .0599373877, y: .482463241}
-  m_Center: {x: .00942505524, y: .00942495465}
+  m_Size: {x: .081566833, y: .537739038}
+  m_Center: {x: .00582016585, y: -.0182123221}
 --- !u!114 &11456980
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -104,7 +104,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300094, guid: cf96894a777d3f249809fe83f5906465, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a4f2c9f1e7c066540bffd2e956d6e3c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

@@ -35,7 +35,6 @@ public class Enemy : MonoBehaviour
                     if (weapon != null && weapon.CanAttack)
                     {
                         weapon.Attack(true);
-                        AudioManager.Instance.PlaySFX("Enemy Laser");
                     }
                 }
             }

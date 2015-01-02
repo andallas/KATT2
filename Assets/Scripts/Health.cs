@@ -26,13 +26,13 @@ public class Health : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D otherCollider)
     {
-        Beam shot = otherCollider.gameObject.GetComponent<Beam>();
-        if(shot != null)
+        Projectile projectile = otherCollider.gameObject.GetComponent<Projectile>();
+        if (projectile != null)
         {
-            if(shot.isEnemyShot != isEnemy)
+            if (projectile.isEnemyShot != isEnemy)
             {
-                Damage(shot.damage);
-                Destroy(shot.gameObject);
+                Damage(projectile.damage);
+                ProjectilePool.Instance.Recycle(projectile.gameObject);
             }
         }
     }
