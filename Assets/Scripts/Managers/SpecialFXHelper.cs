@@ -2,19 +2,27 @@
 
 public class SpecialFXHelper : MonoBehaviour
 {
-    public static SpecialFXHelper Instance;
     public ParticleSystem fireEffect;
     public ParticleSystem smokeEffect;
+    public static SpecialFXHelper Instance { get { return _instance; } }
+
+    private static SpecialFXHelper _instance;
+
 
     void Awake()
     {
-        if(Instance != null)
+        if (_instance == null)
         {
-            Debug.LogError("ERROR: Multiple instances of SpecialFXHelper.");
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
-        Instance = this;
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
+
 
     public void Explosion(Vector3 position)
     {

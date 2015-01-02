@@ -9,7 +9,7 @@ public class ProjectilePool : MonoBehaviour
     public GameObject goPrefab;
     public static ProjectilePool Instance { get { return _instance; } }
 
-    private List<GameObject> pool;
+    public List<GameObject> pool;
     private int poolTotal = 0;
     private static ProjectilePool _instance;
 
@@ -29,12 +29,15 @@ public class ProjectilePool : MonoBehaviour
         poolMax = poolMax != 0 && poolSize > poolMax ? poolSize : poolMax;
     }
 
-    void Start()
+    void OnLevelWasLoaded(int level)
     {
-        pool = new List<GameObject>();
+        if (level > 1)
+        {
+            pool = new List<GameObject>();
 
-        // Create initial pool of objects
-        AddMoreToPool(poolSize);
+            // Create initial pool of objects
+            AddMoreToPool(poolSize);
+        }
     }
 
     public GameObject Create()
