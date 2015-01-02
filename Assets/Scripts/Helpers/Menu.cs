@@ -11,6 +11,8 @@ public class Menu : MonoBehaviour
     public List<GameObject> menuList;
 
     private GameObject _currentPanel;
+    [SerializeField]
+    private GameObject _HUD;
     private Dictionary<string, GameObject> menuPanels;
 
     void Awake()
@@ -20,13 +22,16 @@ public class Menu : MonoBehaviour
 
     void OnLevelWasLoaded(int level)
     {
+        CloseAllMenus();
         if(level == 1)
         {
+            _HUD.SetActive(false);
+            currentPanel = GetPanel("Main Panel");
             currentPanel.SetActive(true);
         }
-        else
+        else if(level > 1)
         {
-            CloseAllMenus();
+            _HUD.SetActive(true);
         }
     }
 
