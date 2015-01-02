@@ -78,10 +78,7 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
-    void Start()
-    {
         source1 = gameObject.AddComponent<AudioSource>();
         source2 = gameObject.AddComponent<AudioSource>();
         PlayBGM(BGM[0].title);
@@ -275,7 +272,6 @@ public class AudioManager : MonoBehaviour
         index = index < 0 ? BGM.Count - 1 : index;
         return BGM[index];
     }
-
 
     private AudioList GetRandomTrack()
     {
