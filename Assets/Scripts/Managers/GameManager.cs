@@ -14,13 +14,13 @@ public class GameManager : MonoBehaviour
     private bool _isPaused = false;
     private bool _levelActive = true;
     private int _score = 0;
+    private int _scoreMultiplier = 1;
     private int _highScore = 0;
     private int _extraLives = 3;
     private GameObject playerObject;
     private Player player;
-    private GameObject UIManager;
-    private GameObject respawnPanel;
-    private GameObject gameOverPanel;
+    private int maxLives = 5;
+    private int extraLifeBonus = 10000;
 
     void Awake()
     {
@@ -40,6 +40,9 @@ public class GameManager : MonoBehaviour
         if(level > 1)
         {
             InitObjectReferences();
+            MenuManager.Instance.HUD.SetScore(_score);
+            MenuManager.Instance.HUD.SetMultiplier(_scoreMultiplier);
+            MenuManager.Instance.HUD.SetLives(_extraLives);
         }
     }
 
@@ -48,13 +51,54 @@ public class GameManager : MonoBehaviour
         _levelActive = false;
         _extraLives -= 1;
         player.DeathSequence();
+        ResetMultiplier();
         if (_extraLives < 0)
         {
             _extraLives = 0;
-            gameOverPanel.SetActive(true);
+            MenuManager.Instance.SwitchMenu("Game Over Panel");
             return;
         }
-        respawnPanel.SetActive(true);
+        MenuManager.Instance.HUD.SetLives(_extraLives);
+        MenuManager.Instance.SwitchMenu("Respawn Panel");
+    }
+
+    public void AddLife()
+    {
+        if(_extraLives >= maxLives)
+        {
+            AddScore(extraLifeBonus);
+            return;
+        }
+        _extraLives++;
+        MenuManager.Instance.HUD.SetLives(_extraLives);
+    }
+
+    public void AddScore(int score)
+    {
+        if(score < 0)
+        {
+            Debug.LogWarning("Attempted to add a negative amount to score.");
+            return;
+        }
+        _score += score * _scoreMultiplier;
+        MenuManager.Instance.HUD.SetScore(_score);
+    }
+
+    public void AddMultiplier(int multipler)
+    {
+        if (multipler < 0)
+        {
+            Debug.LogWarning("Attempted to add a negative amount to score multiplier.");
+            return;
+        }
+        _scoreMultiplier += multipler;
+        MenuManager.Instance.HUD.SetMultiplier(_scoreMultiplier);
+    }
+
+    public void ResetMultiplier()
+    {
+        _scoreMultiplier = 1;
+        MenuManager.Instance.HUD.SetMultiplier(_scoreMultiplier);
     }
 
     public void RespawnPlayer()
@@ -75,13 +119,13 @@ public class GameManager : MonoBehaviour
             _highScore = _score;
         }
         _score = 0;
+        _scoreMultiplier = 1;
         _extraLives = 3;
         _isPaused = false;
         _levelActive = true;
         InitObjectReferences();
-        Menu menu = UIManager.GetComponent<Menu>();
-        menu.CloseAllMenus();
-        menu.currentPanel = menu.GetPanel("Main Panel");
+        MenuManager.Instance.CloseAllMenus();
+        MenuManager.Instance.SetPanel("Main Panel");
 
         Application.LoadLevel(1);
     }
@@ -90,33 +134,5 @@ public class GameManager : MonoBehaviour
     {
         playerObject = GameObject.FindGameObjectWithTag("Player");
         player = playerObject.GetComponent<Player>();
-        
-        UIManager = GameObject.Find("~UIManager");
-        respawnPanel = RecursiveFind(UIManager.transform, "Respawn Panel").gameObject;
-        gameOverPanel = RecursiveFind(UIManager.transform, "Game Over Panel").gameObject;
-    }
-
-    private Transform RecursiveFind(Transform parent, string name)
-    {
-        for (int i = 0; i < parent.transform.childCount; i++)
-        {
-            Transform child = parent.transform.GetChild(i);
-            if (child.gameObject.name == name)
-            {
-                return child;
-            }
-
-            if (child.childCount != 0)
-            {
-                child = RecursiveFind(child, name);
-            }
-
-            if (child && child.gameObject.name == name)
-            {
-                return child;
-            }
-        }
-
-        return null;
     }
 }

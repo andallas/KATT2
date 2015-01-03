@@ -2,30 +2,19 @@
 
 public class UserInput : MonoBehaviour
 {
-    private Menu menu;
-
-    void Start()
-    {
-        menu = GameObject.Find("~UIManager").GetComponent<Menu>();
-        if(menu == null)
-        {
-            Debug.LogError("ERROR: Could not find ~UIManager");
-        }
-    }
-
 	void Update()
     {
         if(Input.GetButtonDown("Cancel"))
         {
-            if(menu.currentPanel.activeSelf)
+            if(MenuManager.Instance.currentPanel.activeSelf)
             {
                 GameManager.Instance.Pause();
-                menu.CloseAllMenus();
+                MenuManager.Instance.CloseAllMenus();
             }
             else
             {
                 GameManager.Instance.Pause();
-                menu.SwitchMenu("Options Panel");
+                MenuManager.Instance.SwitchMenu("Options Panel");
             }
         }
     }

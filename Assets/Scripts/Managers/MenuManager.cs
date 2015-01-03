@@ -1,37 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Menu : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
     public float masterVolume { set { AudioManager.Instance.masterVolume = value; } }
     public float sfxVolume { set { AudioManager.Instance.sfxVolume = value; } }
     public float bgmVolume { set { AudioManager.Instance.bgmVolume = value; } }
+    public HeadsUpDisplay HUD { get { return _HUD; } }
 
     public GameObject currentPanel { get { return _currentPanel; } set { _currentPanel = value; } }
     public List<GameObject> menuList;
+    public GameObject HUDObject;
+    public static MenuManager Instance { get { return _instance; } }
 
     private GameObject _currentPanel;
     private Dictionary<string, GameObject> menuPanels;
+    private HeadsUpDisplay _HUD;
+    private static MenuManager _instance;
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-    }
-
-    void OnLevelWasLoaded(int level)
-    {
-        if(level == 1)
+        if (_instance == null)
         {
-            currentPanel.SetActive(true);
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        else
-        {
-            CloseAllMenus();
-        }
-    }
 
-    void Start()
-    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+
         menuPanels = new Dictionary<string, GameObject>();
 
         int length = menuList.Count;
@@ -40,13 +39,35 @@ public class Menu : MonoBehaviour
             menuList[i].SetActive(false);
             menuPanels.Add(menuList[i].name, menuList[i]);
         }
+        HUDObject.SetActive(false);
 
         currentPanel = menuList[0];
+        _HUD = HUDObject.GetComponent<HeadsUpDisplay>();
+    }
+
+    void OnLevelWasLoaded(int level)
+    {
+        CloseAllMenus();
+        if(level == 1)
+        {
+            HUDObject.SetActive(false);
+            currentPanel = GetPanel("Main Panel");
+            currentPanel.SetActive(true);
+        }
+        else if(level > 1)
+        {
+            HUDObject.SetActive(true);
+        }
     }
 
     public GameObject GetPanel(string menu)
     {
         return menuPanels[menu];
+    }
+
+    public void SetPanel(string menu)
+    {
+        currentPanel = GetPanel(menu);
     }
 
 	public void StartGame()
