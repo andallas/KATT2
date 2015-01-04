@@ -33,14 +33,13 @@ Very similar to the Popcorn, but this variant has the ability to shoot, though i
 
 *Saucer*
 ```
-A small, easily destroyed enemy that provides no threat. It moves across the top of the screen, or
-in a generally difficult to hit position. It is worth an inordinately large amount.
+A small, easily destroyed enemy that provides no threat. It moves across the screen, in a generally
+difficult to hit position. It is worth an inordinately large amount.
 ```
 
 *Cargo Pod*
 ```
-An enemy type that, when destroyed, drops a power-up. In some games, these are completely passive,
-while others will have an active offense.
+An enemy type that, when destroyed, drops a power-up.
 ```
 
 
@@ -48,7 +47,8 @@ while others will have an active offense.
 
 *Turret*
 ```
-An immobile enemy type that attacks by firing directly towards the player ship.
+An immobile enemy type that attacks by firing directly towards the player ship. Often times attached
+to larger ships.
 ```
 
 *Sine Ship*
@@ -64,8 +64,7 @@ An enemy that attacks by flying directly at the player character.
 
 *Tank*
 ```
-A slow-moving ground enemy. Takes two normal shots to destroy. The first shot destroys the turret
-mounted to its top. The second shot destroys the body.
+A slow-moving armored enemy. Each point in armor absorbs a 'hit'.
 ```
 
 *Snake*
@@ -80,14 +79,14 @@ The wide ship that shoots two streams of bullets from widely separated left and 
 
 *Dive Bomber*
 ```
-An enemy that approaches the bottom or side of the screen in a relatively slow, easy to target path.
+An enemy that comes from the side of the screen in a relatively slow, easy to target path.
 When it reaches a critical distance, it releases its bullets and then swoops back to the other end of
 the screen rather quickly.
 ```
 
 *Wing*
 ```
-A small group of ships acting together.
+A small group of ships acting together. These ships are generally some form of popcorn ship.
 ```
 
 *Flood*
@@ -118,20 +117,19 @@ Similar to the gunner, but instead of shooting frequently, shoots a spray of two
 
 *Multi Gunner*
 ```
-The long ship that open to uncover an array (usually two columns in vertical shooters) of identical
-cannons, missile launchers, etc. that fire in synchronized volleys; usually large but easily disarmed.
+A long ship that opens to uncover an array (usually two rows/columns) of identical cannons, missile
+launchers, etc. that fire in synchronized volleys; usually large but easily disarmed.
 ```
 
 *Supersonic*
 ```
-The fast and resilient enemy, usually a fighter jet, that has a particularly high probability of
-escaping alive, in many cases retreating after a brief exposure; not necessarily shooting, since it is
-suitable as a distraction, a scoring difficulty or a Seeker.
+A fast and resilient enemy, that has a particularly high probability of escaping alive, in many cases
+retreating after a brief exposure; not necessarily shooting, since it is suitable as a distraction.
 ```
 
 *Spawner*
 ```
-This enemy produces smaller "child" enemies.
+This enemy produces smaller "child" enemies, generally popcorn type ships.
 ```
 
 *Suicide Bomber*
@@ -147,14 +145,14 @@ shoots it.
 
 *Scrolling Thunder*
 ```
-The train or ship that moves forward ahead of the player rather than scrolling away, greatly extending
-its exposure to player fire. This is a common pattern for bosses and minibosses, and it's usually
-contrasted with regular scrolling enemies.
+A ship that moves forward ahead of the player rather than scrolling away, greatly extending its exposure
+to player fire. This is a common pattern for bosses and minibosses, and it's usually contrasted with
+regular scrolling enemies.
 ```
 
 *Sniper*
 ```
-Appears from lower corner or bottom of the screen and shoots you from behind.
+Appears from lower/back corner or bottom/left of the screen and shoots you from behind.
 ```
 
 
@@ -188,49 +186,47 @@ level. Often, a boss will return in a later level as a sub-boss.
 
 *Flyweight*
 ```
-The small boss with high mobility and high firepower, typically similar to the player's ship or
+A small boss with high mobility and high firepower, typically similar to the player's ship or
 humanoid.
 ```
 
 *Middleweight*
 ```
-The medium boss (shown in its entirety) that fills a large part of the screen but can move
-significantly.
+A medium boss that fills a large part of the screen but can move significantly.
 ```
 
 *Cyclops*
 ```
-The boss that stays in the same place; usually small or medium (leaving a large part of its side of
+A boss that stays in the same place; usually small or medium (leaving a large part of its side of
 the screen unused or available for its flunkies and shots) and sometimes large enough to fill the
-whole screen. There is a typical tactical theme: staying in front of the boss is more dangerous,
+whole screen. There is a typical tactical theme; staying in front of the boss is more dangerous,
 but it's the only way to damage it.
 ```
 
 *Multiple Arena Boss*
 ```
-The gigantic boss that comes into the crosshairs following a preset schedule (sometimes oblivious,
+A gigantic boss that comes into the crosshairs following a preset schedule (sometimes oblivious,
 sometimes stopping until the player destroys the accessible turrets and sections); tends to be a
-battleship or a train.
+battleship.
 ```
 
 *Mutator*
 ```
-The boss that instead of dying changes to a different form. Some forms might be weak and short-lived,
+A boss that instead of dying, changes to a different form. Some forms might be weak and short-lived,
 only meant as a logical transition. Animation and/or dialogue intermissions might introduce the new
-form's appearance. Many examples, but overdone in the recent "The Trapezohedron of the darkness".
-Classic subtypes include people (in a loose sense...) who change dresses and switch to nastier firing
-patterns, destructible vehicles that become angrier and more mobile as the player blows away their
-pieces, combining mecha that join with large accessories as they suffer, and regular looking ships
-that crack open to reveal weird things.
+form's appearance. Classic subtypes include ships who switch to nastier firing patterns, destructible
+vehicles that become angrier and more mobile as the player blows away their pieces, combining mecha
+that join with large accessories as they suffer, and regular looking ships that crack open to reveal
+weird things.
 ```
 
 ####Other
 
 *Pinwheel*
 ```
-More of an attack type than a specific ship type (may need to break these out into movement types and
-attack types). Pinwheel attack shoots bullets out at regular intervals from a central point. The angle
-of release changes over time, creating a curved pattern of bullets.
+More of an attack type than a specific ship type  Pinwheel attack shoots bullets out at regular
+intervals from a central point. The angle of release changes over time, creating a curved pattern of
+bullets.
 ```
 
 *Traffic*
