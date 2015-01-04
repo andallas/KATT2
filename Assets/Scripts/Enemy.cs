@@ -2,18 +2,18 @@
 
 public class Enemy : MonoBehaviour
 {
+    public int scoreValue { get { return _scoreValue; } }
+
     private Weapon[] weapons;
     private bool hasSpawn;
     private Move movement;
+    private int _scoreValue;
 
     void Awake()
     {
+        SetScoreValue();
         weapons = GetComponents<Weapon>();
         movement = GetComponent<Move>();
-    }
-
-    void Start()
-    {
         Enable(false);
     }
 
@@ -56,5 +56,10 @@ public class Enemy : MonoBehaviour
         {
             weapon.enabled = enable;
         }
+    }
+
+    private void SetScoreValue()
+    {
+        _scoreValue = 10;
     }
 }

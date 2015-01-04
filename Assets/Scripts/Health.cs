@@ -16,6 +16,7 @@ public class Health : MonoBehaviour
             if(isEnemy)
             {
                 Destroy(gameObject);
+                GameManager.Instance.AddScore(gameObject.GetComponent<Enemy>().scoreValue);
             }
             else
             {
