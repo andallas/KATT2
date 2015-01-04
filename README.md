@@ -6,21 +6,24 @@ Sequel to KATT.
 ####Objects
 
 Asteroid:
-An object that is easily destroyed, but turns into multiple smaller asteroids that fly out away from the center, optionally with the bullet's vector added.
+`An object that is easily destroyed, but turns into multiple smaller asteroids that fly out away from the center, optionally with the bullet's vector added.`
 
 Wall:
-An essentially indestructible object, generally square.
+`An essentially indestructible object, generally square.`
 
 
 
 ####Enemies
 
-* Weak
+#####Weak
+
 Popcorn:
-A small, easily destroyed enemy that provides little, if any threat. Primarily used for points, distracting the player, or allowing a player to continue a combo chain.
+
+`A small, easily destroyed enemy that provides little, if any threat. Primarily used for points, distracting the player, or allowing a player to continue a combo chain.`
 
 PopcornShoot:
-Very similar to the Popcorn, but this variant has the ability to shoot, though it has a slow firerate.
+
+`Very similar to the Popcorn, but this variant has the ability to shoot, though it has a slow firerate.`
 
 Saucer:
 A small, easily destroyed enemy that provides no threat.  It moves across the top of the screen, or in a generally difficult to hit position.  It is worth an inordinately large amount.
@@ -90,9 +93,7 @@ Sniper:
 Appears from lower corner or bottom of the screen and shoots you from behind (Raiden is particularly full of those enemies)
 
 
-#========#
-# Bosses #
-#========#
+####Bosses
 Sub-Boss/Mini-Boss:
 A larger than average enemy with more life and more threatening attacks than the average enemy in a given level.  The level does not end when they are defeated.  Sometimes, if they are not defeated by the time a given timer counts down to zero, they will flee.
 
@@ -127,9 +128,7 @@ Typically Japanese: the boss that instead of dying changes to a different form. 
 might introduce the new form's appearance. Many examples, but overdone in the recent "The Trapezohedron of the darkness".Classic subtypes include people (in a loose sense...) who change dresses and switch to nastier firing patterns, destructible vehicles that become angrier and more mobile as the player blows away their pieces, combining mecha that join with large accessories as they suffer, and regular looking ships that crack open to reveal weird things (e.g. Raiden).
 
 
-#=======#
-# Other #
-#=======#
+####Other
 Pinwheel:
 More of an attack type than a specific ship type (may need to break these out into movement types and attack types).  Pinwheel attack shoots bullets out at regular intervals from a central point.  The angle of release changes over time, creating a curved pattern of bullets.
 
