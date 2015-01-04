@@ -33,6 +33,7 @@ public class ProjectilePool : MonoBehaviour
     {
         if (level > 1)
         {
+            poolTotal = 0;
             pool = new List<GameObject>();
 
             // Create initial pool of objects
