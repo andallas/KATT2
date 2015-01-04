@@ -1,30 +1,39 @@
 ﻿using UnityEngine;
-using Helper;
+using FSMHelper;
 
 public class MoveState : FSMState
 {
-    public MoveState()
+    private Vector2 movement = Vector2.zero;
+
+    public MoveState(GameObject npc)
     {
         stateID = StateID.MoveState;
+        SetEnemy(npc);
     }
 
     public override void TransitionLogic(GameObject target, GameObject npc)
     {
-        /*
-            if(npc.GetComponent<ShipControl>().GetTargetPlanet() != null)
-            {
-                npc.GetComponent<ShipControl>().SetTransition(Transition.KnownPlanet);
-            }
-            else
-            {
-                npc.GetComponent<ShipControl>().SetTransition(Transition.NoPlanet);
-            }
-        */
-        throw new System.NotImplementedException();
+        if (!enemy.isEnabled)
+        {
+            enemy.SetTransition(Transition.Disabled);
+        }
     }
 
-    public override void BehaviorLogic(GameObject target, GameObject npc)
+    public override void BehaviorLogicFixed(GameObject target)
     {
-        throw new System.NotImplementedException();
+        if (!GameManager.Instance.isPaused)
+        {
+            enemy.rigidbody2D.velocity = movement;
+        }
+        else
+        {
+            enemy.rigidbody2D.velocity = Vector2.zero;
+        }
+    }
+
+    public override void BehaviorLogic(GameObject target)
+    {
+        movement = new Vector2(enemy.direction.x, enemy.direction.y) * enemy.speed;
+        movement = Vector2.ClampMagnitude(movement, enemy.speed);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using Helper;
+using FSMHelper;
 
 public abstract class FSMState
 {
@@ -8,6 +8,7 @@ public abstract class FSMState
 
     protected Dictionary<Transition, StateID> map = new Dictionary<Transition, StateID>();
     protected StateID stateID;
+    protected Enemy enemy;
 
 
     public void AddTransition(Transition trans, StateID id)
@@ -72,7 +73,14 @@ public abstract class FSMState
 
     public abstract void TransitionLogic(GameObject target, GameObject npc);
 
-    public abstract void BehaviorLogic(GameObject target, GameObject npc);
+    public abstract void BehaviorLogicFixed(GameObject target);
+
+    public abstract void BehaviorLogic(GameObject target);
+
+    protected void SetEnemy(GameObject npc)
+    {
+        enemy = npc.GetComponent<Enemy>();
+    }
 
     private void FSMStateError(string errorMsg)
     {
