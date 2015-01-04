@@ -1427,6 +1427,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e748411a7112a2d4eb622031971ecd9a, type: 3}
   - title: Explosion
     clip: {fileID: 8300000, guid: f1bb690c619e4a448abcd4009731784a, type: 3}
+  - title: Extra Life
+    clip: {fileID: 8300000, guid: 75dc91e74caf9d64ca9b8ec0edc597f1, type: 3}
   BGM:
   - title: Dorian
     clip: {fileID: 8300000, guid: 144760f95fe726640b98fb43307e6361, type: 3}
@@ -2660,6 +2662,7 @@ MonoBehaviour:
   poolSize: 50
   poolMax: 500
   goPrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
+  pool: []
 --- !u!114 &1804312290
 MonoBehaviour:
   m_ObjectHideFlags: 0
