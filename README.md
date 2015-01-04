@@ -3,9 +3,8 @@
 Sequel to KATT.
 
 
-#=========#
-# Objects #
-#=========#
+####Objects
+
 Asteroid:
 
 	- An object that is easily destroyed, but turns into multiple smaller asteroids that fly out away from the center, optionally with the bullet's vector added.
@@ -15,27 +14,24 @@ Wall:
 	- An essentially indestructible object, generally square.
 
 
-#=========#
-# Enemies #
-#=========#
-	+------+
-	+ Weak +
-	+------+
-	Popcorn:
 
-		- A small, easily destroyed enemy that provides little, if any threat. Primarily used for points, distracting the player, or allowing a player to continue a combo chain.
+####Enemies
 
-	PopcornShoot:
+* Weak
+Popcorn:
+	- A small, easily destroyed enemy that provides little, if any threat. Primarily used for points, distracting the player, or allowing a player to continue a combo chain.
 
-		- Very similar to the Popcorn, but this variant has the ability to shoot, though it has a slow firerate.
+PopcornShoot:
 
-  	Saucer:
+	- Very similar to the Popcorn, but this variant has the ability to shoot, though it has a slow firerate.
 
-		- A small, easily destroyed enemy that provides no threat.  It moves across the top of the screen, or in a generally difficult to hit position.  It is worth an inordinately large amount.
+Saucer:
 
-  	Cargo Pod:
+	- A small, easily destroyed enemy that provides no threat.  It moves across the top of the screen, or in a generally difficult to hit position.  It is worth an inordinately large amount.
 
-		- An enemy type that, when destroyed, drops a power-up.  In some games, these are completely passive, while others will have an active offense.
+Cargo Pod:
+
+	- An enemy type that, when destroyed, drops a power-up.  In some games, these are completely passive, while others will have an active offense.
 
 
   +-------+
