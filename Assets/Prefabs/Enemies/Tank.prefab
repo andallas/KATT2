@@ -13,8 +13,9 @@ GameObject:
   - 50: {fileID: 5065446}
   - 114: {fileID: 11419730}
   - 114: {fileID: 11491018}
+  - 114: {fileID: 11492610}
   m_Layer: 0
-  m_Name: Popcorn
+  m_Name: Tank
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,9 +70,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94f3acb2680fcc479aa433dbe28cba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreValue: 10
-  speed: 0
-  direction: {x: -1, y: 0}
+  scoreValue: 175
+  speed: .5
+  direction: {x: .5, y: 0}
 --- !u!114 &11491018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -83,8 +84,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee7f76f0373626a43a460deb5b368826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 1
+  healthPoints: 3
   isEnemy: 1
+--- !u!114 &11492610
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 143894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04a964948ab2d6b41a273ff0b80a1734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
+  fireRate: 1.5
 --- !u!212 &21243894
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -105,7 +119,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5966cbff93db2614196c08995f376401, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a2deeb5bf56f3f4caafe58a050d31b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

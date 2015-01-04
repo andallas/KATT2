@@ -58,6 +58,12 @@ A small ship that uses the sine function to generate a movement behavior that is
 Particularly effective in Squadrons. Generally attack by colliding with the player.
 ```
 
+*Sine Shooter*
+```
+A small ship that uses the sine function to generate a movement behavior that is somewhat tricky to hit.
+Particularly effective in Squadrons. Can fire a blaster to attack the player.
+```
+
 *Hunter-Seeker*
 ```
 An enemy that attacks by flying directly at the player character.
