@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  invulnerableEffect: {fileID: 180264, guid: 74f7351d7e10992478f93a924c71a80e, type: 2}
 --- !u!114 &11457518
 MonoBehaviour:
   m_ObjectHideFlags: 1

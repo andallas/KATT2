@@ -4,10 +4,32 @@ public class Health : MonoBehaviour
 {
     public int healthPoints;
     public bool isEnemy;
+    private bool isInvunlerable = false;
+
+    void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        Projectile projectile = otherCollider.gameObject.GetComponent<Projectile>();
+        if (projectile != null)
+        {
+            if (projectile.isEnemyShot != isEnemy)
+            {
+                Damage(projectile.damage);
+                ProjectilePool.Instance.Recycle(projectile.gameObject);
+            }
+        }
+    }
+
+    public void Invulnerable(bool enable)
+    {
+        isInvunlerable = enable;
+    }
 
     public void Damage(int damageCount)
     {
-        healthPoints -= damageCount;
+        if(!isInvunlerable)
+        {
+            healthPoints -= damageCount;
+        }
 
         if(healthPoints <= 0)
         {
@@ -21,19 +43,6 @@ public class Health : MonoBehaviour
             else
             {
                 GameManager.Instance.LoseLife();
-            }
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D otherCollider)
-    {
-        Projectile projectile = otherCollider.gameObject.GetComponent<Projectile>();
-        if (projectile != null)
-        {
-            if (projectile.isEnemyShot != isEnemy)
-            {
-                Damage(projectile.damage);
-                ProjectilePool.Instance.Recycle(projectile.gameObject);
             }
         }
     }
