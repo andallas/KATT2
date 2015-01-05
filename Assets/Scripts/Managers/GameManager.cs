@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public int score { get { return _score; } }
     public int highScore { get { return _highScore; } }
     public int extraLives { get { return _extraLives; } }
+    public Player player { get { return _player; } }
 
     public static GameManager Instance { get { return _instance; } }
 
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour
     private int _highScore = 0;
     private int _extraLives = 3;
     private GameObject playerObject;
-    private Player player;
+    private Player _player;
     private int maxLives = 5;
     private int extraLifeBonus = 10000;
 
@@ -133,6 +134,6 @@ public class GameManager : MonoBehaviour
     private void InitObjectReferences()
     {
         playerObject = GameObject.FindGameObjectWithTag("Player");
-        player = playerObject.GetComponent<Player>();
+        _player = playerObject.GetComponent<Player>();
     }
 }

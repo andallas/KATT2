@@ -82,6 +82,7 @@ public class AudioManager : MonoBehaviour
         source1 = gameObject.AddComponent<AudioSource>();
         source2 = gameObject.AddComponent<AudioSource>();
         PlayBGM(BGM[0].title);
+        Mute();
     }
 
     void Update()

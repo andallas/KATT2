@@ -1,44 +1,44 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &145108
+--- !u!1 &143894
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 445108}
-  - 212: {fileID: 21245108}
-  - 60: {fileID: 6086804}
-  - 50: {fileID: 5025038}
-  - 114: {fileID: 11426932}
-  - 114: {fileID: 11457518}
-  - 114: {fileID: 11404428}
+  - 4: {fileID: 443894}
+  - 212: {fileID: 21243894}
+  - 61: {fileID: 6101224}
+  - 50: {fileID: 5065446}
+  - 114: {fileID: 11419730}
+  - 114: {fileID: 11491018}
+  - 114: {fileID: 11492610}
   m_Layer: 0
-  m_Name: player
-  m_TagString: Player
+  m_Name: Tank Shooter
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &445108
+--- !u!4 &443894
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 145108}
+  m_GameObject: {fileID: 143894}
   m_LocalRotation: {x: 0, y: 0, z: .707106829, w: -.707106829}
-  m_LocalPosition: {x: -4.6500001, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: .5, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &5025038
+--- !u!50 &5065446
 Rigidbody2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 145108}
+  m_GameObject: {fileID: 143894}
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
@@ -48,69 +48,63 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
---- !u!60 &6086804
-PolygonCollider2D:
+--- !u!61 &6101224
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 145108}
+  m_GameObject: {fileID: 143894}
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Poly:
-    m_Paths:
-    - - {x: -.129704997, y: -.274454683}
-      - {x: -.0753246918, y: -.375460148}
-      - {x: .0753664002, y: -.373972028}
-      - {x: .130473718, y: -.274891526}
-      - {x: .113688231, y: .117510654}
-      - {x: .0806244314, y: .370483875}
-      - {x: -.0839978009, y: .371864408}
-      - {x: -.110799901, y: .112595707}
---- !u!114 &11404428
+  m_Size: {x: .610622764, y: .495412052}
+  m_Center: {x: -.00420215866, y: .0840396956}
+--- !u!114 &11419730
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 145108}
+  m_GameObject: {fileID: 143894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c94f3acb2680fcc479aa433dbe28cba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreValue: 235
+  speed: .100000001
+  direction: {x: -1, y: 0}
+--- !u!114 &11491018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 143894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee7f76f0373626a43a460deb5b368826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPoints: 3
+  isEnemy: 1
+--- !u!114 &11492610
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 143894}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04a964948ab2d6b41a273ff0b80a1734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
-  fireRate: .25
---- !u!114 &11426932
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 145108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6abac26bd38a7ce4db8a0c64be4b4162, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
---- !u!114 &11457518
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 145108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee7f76f0373626a43a460deb5b368826, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthPoints: 1
-  isEnemy: 0
---- !u!212 &21245108
+  fireRate: 1.5
+--- !u!212 &21243894
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 145108}
+  m_GameObject: {fileID: 143894}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -125,7 +119,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 35257585ae8e648449421d82653bb882, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a2deeb5bf56f3f4caafe58a050d31b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
@@ -136,6 +130,6 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 145108}
+  m_RootGameObject: {fileID: 143894}
   m_IsPrefabParent: 1
   m_IsExploded: 1

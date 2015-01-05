@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using FSMHelper;
 
-public class MoveState : FSMState
+public class SineMoveState : FSMState
 {
     private Vector2 movement = Vector2.zero;
 
-    public MoveState(GameObject npc)
+    public SineMoveState(GameObject npc)
     {
-        stateID = StateID.MoveState;
+        stateID = StateID.SineMoveState;
         SetEnemy(npc);
     }
 
@@ -33,7 +33,8 @@ public class MoveState : FSMState
 
     public override void BehaviorLogic(GameObject target)
     {
-        movement = new Vector2(enemy.direction.x, enemy.direction.y) * enemy.speed;
+        float y = Mathf.Sin((enemy.transform.position.x - Camera.main.transform.position.x));
+        movement = new Vector2(enemy.direction.x, y) * enemy.speed;
         movement = Vector2.ClampMagnitude(movement, enemy.speed);
     }
 }
