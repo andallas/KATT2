@@ -65,7 +65,6 @@ public class AudioManager : MonoBehaviour
         set
         {
             _isMuted = value;
-            GameManager.Instance.Save();
         }
     }
 
@@ -75,10 +74,10 @@ public class AudioManager : MonoBehaviour
     private bool source1Active = true;
     private float fadeTime = 2.0f;
     private bool isFading = false;
-    private bool _isMuted = false;
-    private float _masterVolume = 1.0f;
-    private float _sfxVolume = 1.0f;
-    private float _bgmVolume = 1.0f;
+    private bool _isMuted;
+    private float _masterVolume;
+    private float _sfxVolume;
+    private float _bgmVolume;
 
     void Awake()
     {
@@ -210,8 +209,23 @@ public class AudioManager : MonoBehaviour
 
     public void Mute()
     {
-        _isMuted = !_isMuted;
-        AudioListener.volume = _isMuted ? 0.0f : masterVolume;
+        isMuted = !isMuted;
+        AudioListener.volume = isMuted ? 0f : 1f;
+    }
+
+    public void LoadMasterVolume(float value)
+    {
+        _masterVolume = value;
+    }
+
+    public void LoadSFXVolume(float value)
+    {
+        _sfxVolume = value;
+    }
+
+    public void LoadBGMVolume(float value)
+    {
+        _bgmVolume = value;
     }
 
     private IEnumerator CrossFade(AudioSource oldSource, AudioSource newSource, AudioClip clip)

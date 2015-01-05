@@ -170,7 +170,6 @@ public class GameManager : MonoBehaviour
         saveData = new JSONClass();
         saveData["version"] = VERSION;
         saveData["playerSettings"]["highScore"].AsInt = _highScore;
-        saveData["audioSettings"]["isMuted"].AsBool = AudioManager.Instance.isMuted;
         saveData["audioSettings"]["masterVolume"].AsFloat = AudioManager.Instance.masterVolume;
         saveData["audioSettings"]["sfxVolume"].AsFloat = AudioManager.Instance.sfxVolume;
         saveData["audioSettings"]["bgmVolume"].AsFloat = AudioManager.Instance.bgmVolume;
@@ -182,13 +181,12 @@ public class GameManager : MonoBehaviour
     {
         saveData = (JSONClass)JSONNode.Parse(LoadFromFile());
         
-        if (saveData["version"].ToString() == VERSION)
+        if (saveData["version"].Value == VERSION)
         {
             _highScore = saveData["playerSettings"]["highScore"].AsInt;
-            AudioManager.Instance.isMuted = saveData["audioSettings"]["isMuted"].AsBool;
-            AudioManager.Instance.masterVolume = saveData["audioSettings"]["masterVolume"].AsFloat;
-            AudioManager.Instance.sfxVolume = saveData["audioSettings"]["sfxVolume"].AsFloat;
-            AudioManager.Instance.bgmVolume = saveData["audioSettings"]["bgmVolume"].AsFloat;
+            AudioManager.Instance.LoadMasterVolume(saveData["audioSettings"]["masterVolume"].AsFloat);
+            AudioManager.Instance.LoadSFXVolume(saveData["audioSettings"]["sfxVolume"].AsFloat);
+            AudioManager.Instance.LoadBGMVolume(saveData["audioSettings"]["bgmVolume"].AsFloat);
         }
         else
         {
@@ -222,15 +220,17 @@ public class GameManager : MonoBehaviour
 
     private void Build()
     {
-        saveData = new JSONClass();
-        saveData["version"] = "v0.0.2";
-        saveData["playerSettings"]["highScore"] = "";
-        saveData["audioSettings"]["isMuted"] = "";
-        saveData["audioSettings"]["masterVolume"] = "";
-        saveData["audioSettings"]["sfxVolume"] = "";
-        saveData["audioSettings"]["bgmVolume"] = "";
+        if(!File.Exists(savePath))
+        {
+            saveData = new JSONClass();
+            saveData["version"] = "v0.0.2";
+            saveData["playerSettings"]["highScore"].AsInt = 0;
+            saveData["audioSettings"]["masterVolume"].AsFloat = 1f;
+            saveData["audioSettings"]["sfxVolume"].AsFloat = 1f;
+            saveData["audioSettings"]["bgmVolume"].AsFloat = 1f;
 
-        SaveToFile();
+            SaveToFile();
+        }
     }
 
     private void InitObjectReferences()
