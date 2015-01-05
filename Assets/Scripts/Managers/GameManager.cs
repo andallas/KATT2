@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using SimpleJSON;
+using System;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +26,10 @@ public class GameManager : MonoBehaviour
     private int maxLives = 5;
     private int extraLifeBonus = 10000;
 
+    private JSONClass saveData;
+    private const string VERSION = "v0.0.2";
+    private string savePath;
+
     void Awake()
     {
         if (_instance == null)
@@ -34,6 +41,14 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        savePath = Application.persistentDataPath + "/data.katt";
+        Build();
+    }
+
+    void Start()
+    {
+        Load();
     }
 
     void OnLevelWasLoaded(int level)
@@ -148,6 +163,74 @@ public class GameManager : MonoBehaviour
         MenuManager.Instance.SetPanel("Main Panel");
 
         Application.LoadLevel(1);
+    }
+
+    public void Save()
+    {
+        saveData = new JSONClass();
+        saveData["version"] = VERSION;
+        saveData["playerSettings"]["highScore"].AsInt = _highScore;
+        saveData["audioSettings"]["masterVolume"].AsFloat = AudioManager.Instance.masterVolume;
+        saveData["audioSettings"]["sfxVolume"].AsFloat = AudioManager.Instance.sfxVolume;
+        saveData["audioSettings"]["bgmVolume"].AsFloat = AudioManager.Instance.bgmVolume;
+
+        SaveToFile();
+    }
+
+    public void Load()
+    {
+        saveData = (JSONClass)JSONNode.Parse(LoadFromFile());
+        
+        if (saveData["version"].Value == VERSION)
+        {
+            _highScore = saveData["playerSettings"]["highScore"].AsInt;
+            AudioManager.Instance.LoadMasterVolume(saveData["audioSettings"]["masterVolume"].AsFloat);
+            AudioManager.Instance.LoadSFXVolume(saveData["audioSettings"]["sfxVolume"].AsFloat);
+            AudioManager.Instance.LoadBGMVolume(saveData["audioSettings"]["bgmVolume"].AsFloat);
+        }
+        else
+        {
+            Debug.LogError("Version mismatch, cannot load file from version: " + saveData["version"] + " Current Version: " + VERSION);
+        }
+    }
+
+    private void SaveToFile()
+    {
+        using (FileStream fs = new FileStream(savePath, FileMode.Create))
+        {
+            BinaryWriter fileWriter = new BinaryWriter(fs);
+            fileWriter.Write(saveData.ToString(""));
+            fs.Close();
+        }
+    }
+
+    private string LoadFromFile()
+    {
+        string data = "";
+
+        using (FileStream fs = new FileStream(savePath, FileMode.Open))
+        {
+            BinaryReader fileReader = new BinaryReader(fs);
+            data = fileReader.ReadString();
+            fs.Close();
+        }
+
+        return data;
+    }
+
+    private void Build()
+    {
+        if(!File.Exists(savePath))
+        {
+            saveData = new JSONClass();
+            saveData["version"] = "v0.0.2";
+            saveData["playerSettings"]["highScore"].AsInt = 0;
+            saveData["audioSettings"]["masterVolume"].AsFloat = 1f;
+            saveData["audioSettings"]["sfxVolume"].AsFloat = 1f;
+            saveData["audioSettings"]["bgmVolume"].AsFloat = 1f;
+
+            SaveToFile();
+        }
     }
 
     private void InitObjectReferences()

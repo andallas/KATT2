@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 public class MenuManager : MonoBehaviour
 {
-    public float masterVolume { set { AudioManager.Instance.masterVolume = value; } }
-    public float sfxVolume { set { AudioManager.Instance.sfxVolume = value; } }
-    public float bgmVolume { set { AudioManager.Instance.bgmVolume = value; } }
     public HeadsUpDisplay HUD { get { return _HUD; } }
 
     public GameObject currentPanel { get { return _currentPanel; } set { _currentPanel = value; } }
@@ -13,6 +10,9 @@ public class MenuManager : MonoBehaviour
     public GameObject HUDObject;
     public static MenuManager Instance { get { return _instance; } }
 
+    private float masterVolume { set { AudioManager.Instance.masterVolume = value; } }
+    private float sfxVolume { set { AudioManager.Instance.sfxVolume = value; } }
+    private float bgmVolume { set { AudioManager.Instance.bgmVolume = value; } }
     private GameObject _currentPanel;
     private Dictionary<string, GameObject> menuPanels;
     private HeadsUpDisplay _HUD;
