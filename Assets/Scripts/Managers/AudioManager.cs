@@ -22,6 +22,7 @@ public class AudioManager : MonoBehaviour
         set
         {
             _masterVolume = value;
+            GameManager.Instance.Save();
             if (source1Active)
             {
                 source1.volume = bgmVolume * _masterVolume;
@@ -35,7 +36,11 @@ public class AudioManager : MonoBehaviour
     public float sfxVolume
     {
         get { return _sfxVolume; }
-        set { _sfxVolume = value; }
+        set
+        {
+            _sfxVolume = value;
+            GameManager.Instance.Save();
+        }
     }
     public float bgmVolume
     {
@@ -43,6 +48,7 @@ public class AudioManager : MonoBehaviour
         set
         {
             _bgmVolume = value;
+            GameManager.Instance.Save();
             if (source1Active)
             {
                 source1.volume = _bgmVolume * masterVolume;
@@ -53,15 +59,23 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
-    public bool isMuted { get { return _isMuted; } }
+    public bool isMuted
+    {
+        get { return _isMuted; }
+        set
+        {
+            _isMuted = value;
+            GameManager.Instance.Save();
+        }
+    }
 
     private static AudioManager _instance = null;
     private AudioSource source1;
     private AudioSource source2;
     private bool source1Active = true;
-    private bool _isMuted = false;
     private float fadeTime = 2.0f;
     private bool isFading = false;
+    private bool _isMuted = false;
     private float _masterVolume = 1.0f;
     private float _sfxVolume = 1.0f;
     private float _bgmVolume = 1.0f;
@@ -81,8 +95,11 @@ public class AudioManager : MonoBehaviour
 
         source1 = gameObject.AddComponent<AudioSource>();
         source2 = gameObject.AddComponent<AudioSource>();
+    }
+
+    void Start()
+    {
         PlayBGM(BGM[0].title);
-        Mute();
     }
 
     void Update()
