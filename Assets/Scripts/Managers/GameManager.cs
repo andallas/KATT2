@@ -96,6 +96,25 @@ public class GameManager : MonoBehaviour
         MenuManager.Instance.HUD.SetMultiplier(_scoreMultiplier);
     }
 
+    public void AddInvulnerability(Pickup.PickupType type)
+    {
+        switch (type)
+        {
+            case Pickup.PickupType.InvulnerabilityBronze:
+                player.Invulnerable(5f);
+            break;
+            case Pickup.PickupType.InvulnerabilitySilver:
+                player.Invulnerable(10f);
+            break;
+            case Pickup.PickupType.InvulnerabilityGold:
+                player.Invulnerable(15f);
+            break;
+            default:
+                Debug.LogError("Wrong pickup type sent, should be an Invulnerable powerup type.");
+            break;
+        }
+    }
+
     public void ResetMultiplier()
     {
         _scoreMultiplier = 1;

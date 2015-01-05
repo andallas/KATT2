@@ -4,14 +4,19 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     public float speed;
+    public GameObject invulnerableEffect;
 
     private Vector2 movement;
     private Transform _transform;
     private float halfWidth;
     private float halfHeight;
+    private GameObject _invulnerableEffect;
 
-    void Start()
+    void Awake()
     {
+        _invulnerableEffect = (GameObject)Instantiate(invulnerableEffect, this.transform.position, Quaternion.identity);
+        _invulnerableEffect.transform.SetParent(this.transform);
+        _invulnerableEffect.SetActive(false);
         _transform = transform;
         halfWidth = renderer.bounds.size.x / 2;
         halfHeight = renderer.bounds.size.y / 2;
@@ -85,7 +90,21 @@ public class Player : MonoBehaviour
 
     public void DeathSequence()
     {
-        gameObject.GetComponent<Renderer>().enabled = false;
-        gameObject.GetComponent<Collider2D>().enabled = false;
+        this.GetComponent<Renderer>().enabled = false;
+        this.GetComponent<Collider2D>().enabled = false;
+    }
+
+    public void Invulnerable(float seconds)
+    {
+        this.GetComponent<Health>().Invulnerable(true);
+        _invulnerableEffect.SetActive(true);
+        StartCoroutine(SetInvulnerable(seconds));
+    }
+
+    private IEnumerator SetInvulnerable(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        this.GetComponent<Health>().Invulnerable(false);
+        _invulnerableEffect.SetActive(false);
     }
 }
