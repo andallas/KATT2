@@ -9,5 +9,11 @@ public class BoundsZone : MonoBehaviour
         {
             ProjectilePool.Instance.Recycle(projectile.gameObject);
         }
+
+        Pickup pickup = other.gameObject.GetComponent<Pickup>();
+        if (pickup != null)
+        {
+            pickup.OutOfBounds();
+        }
     }
 }

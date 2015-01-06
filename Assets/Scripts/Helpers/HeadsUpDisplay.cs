@@ -8,6 +8,7 @@ public class HeadsUpDisplay : MonoBehaviour
 
     private Text scoreText;
     private Text multiplierText;
+    private Text medalMultiplierText;
     private string scoreString = "Score: ";
 
     void Awake()
@@ -26,6 +27,11 @@ public class HeadsUpDisplay : MonoBehaviour
             {
                 multiplierText = childrenText[i];
             }
+
+            if (childrenText[i].gameObject.name == "Medal Multiplier")
+            {
+                medalMultiplierText = childrenText[i];
+            }
         }
 
         if(scoreText == null)
@@ -36,6 +42,11 @@ public class HeadsUpDisplay : MonoBehaviour
         if (multiplierText == null)
         {
             Debug.LogError("Unable to find Score Multiplier gameObject.");
+        }
+
+        if (medalMultiplierText == null)
+        {
+            Debug.LogError("Unable to find Medal Multiplier gameObject.");
         }
     }
 
@@ -63,5 +74,10 @@ public class HeadsUpDisplay : MonoBehaviour
     public void SetMultiplier(int multiplier)
     {
         multiplierText.text = multiplier.ToString();
+    }
+
+    public void SetMedalMultiplier(int multiplier)
+    {
+        medalMultiplierText.text = multiplier.ToString();
     }
 }
