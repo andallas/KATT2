@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private bool _levelActive = true;
     private int _score = 0;
     private int _scoreMultiplier = 1;
+    private int _medalMultiplier = 1;
     private int _highScore = 0;
     private int _extraLives = 3;
     private GameObject playerObject;
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
             InitObjectReferences();
             MenuManager.Instance.HUD.SetScore(_score);
             MenuManager.Instance.HUD.SetMultiplier(_scoreMultiplier);
+            MenuManager.Instance.HUD.SetMedalMultiplier(_medalMultiplier);
             MenuManager.Instance.HUD.SetLives(_extraLives);
         }
     }
@@ -68,6 +70,7 @@ public class GameManager : MonoBehaviour
         _extraLives -= 1;
         player.DeathSequence();
         ResetMultiplier();
+        ResetMedalMultiplier();
         if (_extraLives < 0)
         {
             _extraLives = 0;
@@ -102,32 +105,26 @@ public class GameManager : MonoBehaviour
 
     public void AddMultiplier(int multipler)
     {
-        if (multipler < 0)
-        {
-            Debug.LogWarning("Attempted to add a negative amount to score multiplier.");
-            return;
-        }
         _scoreMultiplier += multipler;
         MenuManager.Instance.HUD.SetMultiplier(_scoreMultiplier);
     }
 
-    public void AddInvulnerability(Pickup.PickupType type)
+    public void AddInvulnerability(float seconds)
     {
-        switch (type)
-        {
-            case Pickup.PickupType.InvulnerabilityBronze:
-                player.Invulnerable(5f);
-            break;
-            case Pickup.PickupType.InvulnerabilitySilver:
-                player.Invulnerable(10f);
-            break;
-            case Pickup.PickupType.InvulnerabilityGold:
-                player.Invulnerable(15f);
-            break;
-            default:
-                Debug.LogError("Wrong pickup type sent, should be an Invulnerable powerup type.");
-            break;
-        }
+        player.Invulnerable(seconds);
+    }
+
+    public void AddMedal(int score)
+    {
+        _medalMultiplier++;
+        AddScore(score * _medalMultiplier);
+        MenuManager.Instance.HUD.SetMedalMultiplier(_medalMultiplier);
+    }
+
+    public void ResetMedalMultiplier()
+    {
+        _medalMultiplier = 1;
+        MenuManager.Instance.HUD.SetMedalMultiplier(_medalMultiplier);
     }
 
     public void ResetMultiplier()
