@@ -13,7 +13,7 @@ public abstract class Enemy : MonoBehaviour
     protected bool _isEnabled = false;
     protected FSMSystem fsm;
     protected Weapon[] weapons;
-    protected bool hasSpawn;
+    protected bool hasSpawned;
 
     void Awake()
     {
@@ -32,7 +32,7 @@ public abstract class Enemy : MonoBehaviour
         fsm.CurrentState.TransitionLogic(target, gameObject);
         fsm.CurrentState.BehaviorLogic(target);
 
-        if (!hasSpawn)
+        if (!hasSpawned)
         {
             if (renderer.IsVisibleFrom(Camera.main))
             {
@@ -67,7 +67,7 @@ public abstract class Enemy : MonoBehaviour
     protected void Enable(bool enable)
     {
         _isEnabled = enable;
-        hasSpawn = enable;
+        hasSpawned = enable;
         collider2D.enabled = enable;
 
         foreach (Weapon weapon in weapons)
