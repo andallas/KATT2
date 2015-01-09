@@ -15,6 +15,7 @@ public class MoveState : FSMState
     {
         if (!enemy.isEnabled)
         {
+            npc.GetComponentInChildren<Animator>().SetBool("Moving", false);
             enemy.SetTransition(Transition.Disabled);
         }
     }
