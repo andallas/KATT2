@@ -33,8 +33,9 @@ public class SineMoveState : FSMState
 
     public override void BehaviorLogic(GameObject target)
     {
+        float noise = Random.Range(-0.25f, 0.25f);
         float y = Mathf.Sin((enemy.transform.position.x - Camera.main.transform.position.x));
-        movement = new Vector2(enemy.direction.x, y) * enemy.speed;
+        movement = new Vector2(enemy.direction.x, y + noise) * enemy.speed;
         movement = Vector2.ClampMagnitude(movement, enemy.speed);
     }
 }
