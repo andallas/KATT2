@@ -72,7 +72,14 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        rigidbody2D.velocity = movement;
+        if (GameManager.Instance.levelActive && !GameManager.Instance.isPaused)
+        {
+            rigidbody2D.velocity = movement;
+        }
+        else
+        {
+            rigidbody2D.velocity = Vector3.zero;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
