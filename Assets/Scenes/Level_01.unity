@@ -1819,7 +1819,7 @@ MonoBehaviour:
     - name: Popcorn
       message: Sending 3 Popcorn!
       delay: .5
-      numToSpawn: 30
+      numToSpawn: 5
       enemyPrefab: {fileID: 143894, guid: 2e81196908d827f4cb566627a950a484, type: 2}
   - name: Sine Wave
     message: Beginning Sine Wave!
@@ -1828,7 +1828,7 @@ MonoBehaviour:
     - name: Sine Shooters
       message: Sending 4 Sine Shooters!
       delay: 3
-      numToSpawn: 4
+      numToSpawn: 30
       enemyPrefab: {fileID: 143894, guid: f8bfc99f4b0732741a52c0c3c1ad937b, type: 2}
   - name: Tank Wave
     message: Beginning Tank Wave!
