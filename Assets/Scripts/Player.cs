@@ -117,6 +117,10 @@ public class Player : MonoBehaviour
     private IEnumerator SetInvulnerable(float seconds)
     {
         yield return new WaitForSeconds(seconds + 0.25f);
+        while (GameManager.Instance.isPaused)
+        {
+            yield return new WaitForFixedUpdate();
+        }
         this.GetComponent<Health>().Invulnerable(false);
         _invulnerableEffect.SetActive(false);
     }

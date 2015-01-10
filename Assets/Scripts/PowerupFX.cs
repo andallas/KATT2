@@ -36,6 +36,10 @@ public class PowerupFX : MonoBehaviour
     IEnumerator Countdown(float seconds)
     {
         yield return new WaitForSeconds(5f);
+        while (GameManager.Instance.isPaused)
+        {
+            yield return new WaitForFixedUpdate();
+        }
         seconds -= 5f;
         if(seconds >= 0f)
         {
@@ -71,6 +75,10 @@ public class PowerupFX : MonoBehaviour
 
             fadeCounter -= delta;
             yield return new WaitForSeconds(delta);
+            while (GameManager.Instance.isPaused)
+            {
+                yield return new WaitForFixedUpdate();
+            }
         }
 
         color2.a = 0f;

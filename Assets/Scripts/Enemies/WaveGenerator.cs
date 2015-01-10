@@ -33,6 +33,10 @@ public class WaveGenerator : MonoBehaviour
                     if(!waveReady)
                     {
                         yield return new WaitForSeconds(wave.delay);
+                        while (GameManager.Instance.isPaused)
+                        {
+                            yield return new WaitForFixedUpdate();
+                        }
                         waveReady = true;
                         if (wave.message != "")
                         {
@@ -43,6 +47,10 @@ public class WaveGenerator : MonoBehaviour
                     if (waveAction.delay > 0)
                     {
                         yield return new WaitForSeconds(waveAction.delay);
+                        while (GameManager.Instance.isPaused)
+                        {
+                            yield return new WaitForFixedUpdate();
+                        }
                     }
 
                     if (waveAction.message != "")
