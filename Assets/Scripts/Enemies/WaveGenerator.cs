@@ -33,6 +33,10 @@ public class WaveGenerator : MonoBehaviour
                     if(!waveReady)
                     {
                         yield return new WaitForSeconds(wave.delay);
+                        while (GameManager.Instance.isPaused)
+                        {
+                            yield return new WaitForFixedUpdate();
+                        }
                         waveReady = true;
                         if (wave.message != "")
                         {
@@ -43,6 +47,10 @@ public class WaveGenerator : MonoBehaviour
                     if (waveAction.delay > 0)
                     {
                         yield return new WaitForSeconds(waveAction.delay);
+                        while (GameManager.Instance.isPaused)
+                        {
+                            yield return new WaitForFixedUpdate();
+                        }
                     }
 
                     if (waveAction.message != "")
@@ -57,7 +65,7 @@ public class WaveGenerator : MonoBehaviour
                             GameObject enemy = (GameObject)Instantiate(waveAction.enemyPrefab);
                             enemy.transform.SetParent(spawnParent);
 
-                            Vector2 rand = new Vector2(Random.Range(0f, screenSize.x), Random.Range(-screenSize.y, screenSize.y));
+                            Vector2 rand = new Vector2(Random.Range(0f, screenSize.x), Random.Range(-screenSize.y + 0.1f, screenSize.y - 0.5f));
                             Vector3 pos = new Vector3(transform.position.x + rand.x, transform.position.y + rand.y, transform.position.z);
                             enemy.transform.position = pos;
                         }

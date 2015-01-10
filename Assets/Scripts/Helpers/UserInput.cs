@@ -8,8 +8,12 @@ public class UserInput : MonoBehaviour
         {
             if(MenuManager.Instance.currentPanel.activeSelf)
             {
-                GameManager.Instance.Pause();
                 MenuManager.Instance.CloseAllMenus();
+
+                if (GameManager.Instance.currentLevel == 1)
+                {
+                    MenuManager.Instance.SwitchMenu("Main Panel");
+                }
             }
             else
             {

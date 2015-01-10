@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int highScore { get { return _highScore; } }
     public int extraLives { get { return _extraLives; } }
     public Player player { get { return _player; } }
+    public int currentLevel { get { return _currentLevel; } }
 
     public static GameManager Instance { get { return _instance; } }
 
@@ -20,10 +21,12 @@ public class GameManager : MonoBehaviour
     private int _score = 0;
     private int _scoreMultiplier = 1;
     private int _medalMultiplier = 1;
+    private int _medalMultiplierCap = 10;
     private int _highScore = 0;
     private int _extraLives = 3;
-    private GameObject playerObject;
     private Player _player;
+    private int _currentLevel = 0;
+    private GameObject playerObject;
     private int maxLives = 5;
     private int extraLifeBonus = 10000;
 
@@ -54,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     void OnLevelWasLoaded(int level)
     {
+        _currentLevel = level;
         if(level > 1)
         {
             InitObjectReferences();
@@ -116,7 +120,7 @@ public class GameManager : MonoBehaviour
 
     public void AddMedal(int score)
     {
-        _medalMultiplier++;
+        _medalMultiplier = _medalMultiplier < _medalMultiplierCap ? _medalMultiplier + 1 : _medalMultiplier;
         AddScore(score * _medalMultiplier);
         MenuManager.Instance.HUD.SetMedalMultiplier(_medalMultiplier);
     }
@@ -157,6 +161,7 @@ public class GameManager : MonoBehaviour
         _levelActive = true;
         InitObjectReferences();
         MenuManager.Instance.CloseAllMenus();
+        Pause();
         MenuManager.Instance.SetPanel("Main Panel");
 
         Application.LoadLevel(1);

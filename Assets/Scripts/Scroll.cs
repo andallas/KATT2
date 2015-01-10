@@ -41,11 +41,6 @@ public class Scroll : MonoBehaviour
             movement *= Time.deltaTime;
             transform.Translate(movement);
 
-            if (isLinkedToCamera && GameManager.Instance.levelActive)
-            {
-                Camera.main.transform.Translate(movement);
-            }
-
             if (isLooping)
             {
                 if (isRandom)
