@@ -14,10 +14,6 @@ public class UserInput : MonoBehaviour
                 {
                     MenuManager.Instance.SwitchMenu("Main Panel");
                 }
-                else if (GameManager.Instance.currentLevel > 1)
-                {
-                    GameManager.Instance.Pause();
-                }
             }
             else
             {

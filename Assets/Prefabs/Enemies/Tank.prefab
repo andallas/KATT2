@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 175
-  speed: .100000001
+  speed: .300000012
   direction: {x: -1, y: 0}
 --- !u!114 &11491018
 MonoBehaviour:

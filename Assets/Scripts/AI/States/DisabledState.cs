@@ -11,7 +11,7 @@ public class DisabledState : FSMState
 
     public override void TransitionLogic(GameObject target, GameObject npc)
     {
-        if (npc.GetComponent<Enemy>().isEnabled)
+        if (GameManager.Instance.levelActive)
         {
             npc.GetComponentInChildren<Animator>().SetBool("Moving", true);
             npc.GetComponent<Enemy>().SetTransition(Transition.Enabled);

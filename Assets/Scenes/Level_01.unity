@@ -106,7 +106,7 @@ Transform:
   m_LocalScale: {x: .5, y: .5, z: 1}
   m_Children:
   - {fileID: 729574839}
-  m_Father: {fileID: 218374792}
+  m_Father: {fileID: 1376570510}
   m_RootOrder: 0
 --- !u!212 &155891583
 SpriteRenderer:
@@ -323,10 +323,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 155891582}
   - {fileID: 947525046}
   m_Father: {fileID: 1376570510}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!114 &218374793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,7 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   direction: {x: 1, y: 0}
-  isLinkedToCamera: 1
+  isLinkedToCamera: 0
   isLooping: 0
   isRandom: 0
 --- !u!1 &222346086
@@ -1182,7 +1181,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 218374792}
+    m_TransformParent: {fileID: 1376570510}
     m_Modifications:
     - target: {fileID: 445108, guid: cffe3d4ff0b5c8740a51da03a64bbf22, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1798,7 +1797,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 218374792}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!114 &947525047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2375,6 +2374,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 155891582}
   - {fileID: 218374792}
   m_Father: {fileID: 1309975836}
   m_RootOrder: 2
