@@ -160,6 +160,7 @@ public class GameManager : MonoBehaviour
         _levelActive = true;
         InitObjectReferences();
         MenuManager.Instance.CloseAllMenus();
+        Pause();
         MenuManager.Instance.SetPanel("Main Panel");
 
         Application.LoadLevel(1);
