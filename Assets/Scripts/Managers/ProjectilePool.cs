@@ -83,7 +83,6 @@ public class ProjectilePool : MonoBehaviour
             Destroy(go);
             return;
         }
-        go.transform.parent = null;
         go.SetActive(false);
     }
 
@@ -105,6 +104,7 @@ public class ProjectilePool : MonoBehaviour
 
             GameObject go = (GameObject)Instantiate(goPrefab);
             go.SetActive(false);
+            go.transform.SetParent(this.transform);
             pool.Add(go);
             poolTotal++;
         }
@@ -121,6 +121,7 @@ public class ProjectilePool : MonoBehaviour
 
         GameObject go = (GameObject)Instantiate(prefab);
         go.SetActive(false);
+        go.transform.SetParent(this.transform);
         pool.Add(go);
         poolTotal++;
 

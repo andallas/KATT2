@@ -15,6 +15,7 @@ public class MoveState : FSMState
     {
         if (!enemy.isEnabled)
         {
+            npc.GetComponentInChildren<Animator>().SetBool("Moving", false);
             enemy.SetTransition(Transition.Disabled);
         }
     }
@@ -33,7 +34,8 @@ public class MoveState : FSMState
 
     public override void BehaviorLogic(GameObject target)
     {
-        movement = new Vector2(enemy.direction.x, enemy.direction.y) * enemy.speed;
+        float noise = Random.Range(-1f, 1f);
+        movement = new Vector2(enemy.direction.x, enemy.direction.y + noise) * enemy.speed;
         movement = Vector2.ClampMagnitude(movement, enemy.speed);
     }
 }

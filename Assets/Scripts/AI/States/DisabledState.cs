@@ -13,6 +13,7 @@ public class DisabledState : FSMState
     {
         if (npc.GetComponent<Enemy>().isEnabled)
         {
+            npc.GetComponentInChildren<Animator>().SetBool("Moving", true);
             npc.GetComponent<Enemy>().SetTransition(Transition.Enabled);
         }
     }

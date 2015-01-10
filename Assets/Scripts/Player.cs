@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private float halfWidth;
     private float halfHeight;
     private GameObject _invulnerableEffect;
+    private Animator animator;
 
     void Awake()
     {
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
         _transform = transform;
         halfWidth = renderer.bounds.size.x / 2;
         halfHeight = renderer.bounds.size.y / 2;
+        animator = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -28,6 +30,15 @@ public class Player : MonoBehaviour
         {
             float inputX = Input.GetAxis("Horizontal");
             float inputY = Input.GetAxis("Vertical");
+
+            if(inputX != 0 || inputY != 0)
+            {
+                animator.SetBool("Moving", true);
+            }
+            else
+            {
+                animator.SetBool("Moving", false);
+            }
 
             movement = new Vector2(inputX, inputY) * speed;
             movement = Vector2.ClampMagnitude(movement, speed);
