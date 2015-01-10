@@ -42,7 +42,7 @@ public class SplashScreen : MonoBehaviour
                     StartCoroutine("FadeOut");
                 }
             }
-            if (!fadeIn)
+            else
             {
                 if (fadeOut)
                 {

@@ -15,7 +15,8 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        _invulnerableEffect = (GameObject)Instantiate(invulnerableEffect, this.transform.position, Quaternion.identity);
+        _invulnerableEffect = (GameObject)Instantiate(invulnerableEffect);
+        _invulnerableEffect.transform.position = this.transform.position;
         _invulnerableEffect.transform.SetParent(this.transform);
         _invulnerableEffect.SetActive(false);
         _transform = transform;
@@ -109,12 +110,13 @@ public class Player : MonoBehaviour
     {
         this.GetComponent<Health>().Invulnerable(true);
         _invulnerableEffect.SetActive(true);
+        _invulnerableEffect.GetComponent<PowerupFX>().Enable(seconds);
         StartCoroutine(SetInvulnerable(seconds));
     }
 
     private IEnumerator SetInvulnerable(float seconds)
     {
-        yield return new WaitForSeconds(seconds);
+        yield return new WaitForSeconds(seconds + 0.25f);
         this.GetComponent<Health>().Invulnerable(false);
         _invulnerableEffect.SetActive(false);
     }
