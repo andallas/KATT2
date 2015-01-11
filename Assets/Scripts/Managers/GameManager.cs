@@ -119,6 +119,23 @@ public class GameManager : MonoBehaviour
         MenuManager.Instance.HUD.SetMultiplier(_scoreMultiplier);
     }
 
+    public void AddCores(int coreAmount)
+    {
+        switch(coreAmount)
+        {
+            case 1:
+                _cores += 10;
+                break;
+            case 2:
+                _cores += 50;
+                break;
+            case 3:
+                _cores += 250;
+                break;
+            default: break;
+        }
+    }
+
     public void AddInvulnerability(float seconds)
     {
         player.Invulnerable(seconds);
