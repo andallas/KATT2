@@ -5,6 +5,7 @@ public class Pickup : MonoBehaviour
     public enum PickupType {InvulnerabilityBronze, InvulnerabilitySilver, InvulnerabilityGold,
                             MedalBronze, MedalSilver, MedalGold,
                             ScoreMultiplierX1, ScoreMultiplierX2, ScoreMultiplierX3,
+                            CoinBronze, CoinSilver, CoinGold,
                             ExtraLife }
 
     public PickupType type;
@@ -20,23 +21,28 @@ public class Pickup : MonoBehaviour
                 case PickupType.InvulnerabilitySilver:
                 case PickupType.InvulnerabilityGold:
                     GameManager.Instance.AddInvulnerability(((int)type % 3 + 1) * 5f);
-                break;
+                    break;
                 case PickupType.MedalBronze:
                 case PickupType.MedalSilver:
                 case PickupType.MedalGold:
                     GameManager.Instance.AddMedal(((int)type % 3 + 1) * 500);
-                break;
+                    break;
                 case PickupType.ScoreMultiplierX1:
                 case PickupType.ScoreMultiplierX2:
                 case PickupType.ScoreMultiplierX3:
-                    GameManager.Instance.AddMultiplier(((int)type % 3 + 1));
-                break;
+                    GameManager.Instance.AddMultiplier((int)type % 3 + 1);
+                    break;
+                case PickupType.CoinBronze:
+                case PickupType.CoinSilver:
+                case PickupType.CoinGold:
+                    GameManager.Instance.AddCores((int)type % 3 + 1);
+                    break;
                 case PickupType.ExtraLife:
                     GameManager.Instance.AddLife();
-                break;
+                    break;
                 default:
                     Debug.LogError("Pickup type not implemented.");
-                break;
+                    break;
             }
             Destroy(gameObject);
         }
@@ -58,6 +64,9 @@ public class Pickup : MonoBehaviour
             case PickupType.ScoreMultiplierX1:
             case PickupType.ScoreMultiplierX2:
             case PickupType.ScoreMultiplierX3:
+            case PickupType.CoinBronze:
+            case PickupType.CoinSilver:
+            case PickupType.CoinGold:
             case PickupType.ExtraLife:
                 Destroy(gameObject);
             break;
