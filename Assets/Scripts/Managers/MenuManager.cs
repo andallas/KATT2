@@ -78,7 +78,7 @@ public class MenuManager : MonoBehaviour
 
 	public void StartGame()
     {
-        Application.LoadLevel("Level_01");
+        Application.LoadLevel(2);
     }
 
     public void SwitchMenu(string menu)
@@ -86,6 +86,14 @@ public class MenuManager : MonoBehaviour
         currentPanel.SetActive(false);
         currentPanel = GetPanel(menu);
         currentPanel.SetActive(true);
+        switch(menu)
+        {
+            case "Graphics Panel":
+            case "Game Panel":
+                Debug.LogWarning(menu + " not implemented yet");
+                break;
+            default: break;
+        }
     }
 
     public void CloseAllMenus()
