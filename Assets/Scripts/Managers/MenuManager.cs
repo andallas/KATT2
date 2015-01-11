@@ -48,13 +48,19 @@ public class MenuManager : MonoBehaviour
     void OnLevelWasLoaded(int level)
     {
         CloseAllMenus();
-        if(level == 1)
+        if(level == 1) // Main menu
         {
             HUDObject.SetActive(false);
             currentPanel = GetPanel("Main Panel");
             currentPanel.SetActive(true);
         }
-        else if(level > 1)
+        else if(level == 2) // Store
+        {
+            HUDObject.SetActive(false);
+            currentPanel = GetPanel("Store Panel");
+            currentPanel.SetActive(true);
+        }
+        else if(level > 1) // Levels
         {
             HUDObject.SetActive(true);
         }
@@ -72,7 +78,7 @@ public class MenuManager : MonoBehaviour
 
 	public void StartGame()
     {
-        Application.LoadLevel("Level_01");
+        Application.LoadLevel(2);
     }
 
     public void SwitchMenu(string menu)
@@ -80,6 +86,14 @@ public class MenuManager : MonoBehaviour
         currentPanel.SetActive(false);
         currentPanel = GetPanel(menu);
         currentPanel.SetActive(true);
+        switch(menu)
+        {
+            case "Graphics Panel":
+            case "Game Panel":
+                Debug.LogWarning(menu + " not implemented yet");
+                break;
+            default: break;
+        }
     }
 
     public void CloseAllMenus()

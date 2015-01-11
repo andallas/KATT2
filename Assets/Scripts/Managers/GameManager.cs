@@ -2,16 +2,21 @@
 using SimpleJSON;
 using System;
 using System.IO;
+using System.Collections.Generic;
+using Helper;
 
 public class GameManager : MonoBehaviour
 {
+    public List<Item> upgrades, weapons;
+
     public bool isPaused { get { return _isPaused; } }
     public bool levelActive { get { return _levelActive; } }
     public int score { get { return _score; } }
     public int highScore { get { return _highScore; } }
     public int extraLives { get { return _extraLives; } }
-    public Player player { get { return _player; } }
     public int currentLevel { get { return _currentLevel; } }
+    public int cores { get { return _cores; } }
+    public Player player { get { return _player; } }
 
     public static GameManager Instance { get { return _instance; } }
 
@@ -24,8 +29,9 @@ public class GameManager : MonoBehaviour
     private int _medalMultiplierCap = 10;
     private int _highScore = 0;
     private int _extraLives = 3;
+    private int _currentLevel = 2;
+    private int _cores = 1000;
     private Player _player;
-    private int _currentLevel = 0;
     private GameObject playerObject;
     private int maxLives = 5;
     private int extraLifeBonus = 10000;
@@ -58,7 +64,7 @@ public class GameManager : MonoBehaviour
     void OnLevelWasLoaded(int level)
     {
         _currentLevel = level;
-        if(level > 1)
+        if(level > 2)
         {
             InitObjectReferences();
             MenuManager.Instance.HUD.SetScore(_score);
@@ -194,6 +200,66 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("Version mismatch, cannot load file from version: " + saveData["version"] + " Current Version: " + VERSION);
         }
+    }
+
+    public void PurchaseItem(string itemName)
+    {
+        Item item = GetItem(itemName);
+        if(item.level < 3)
+        {
+            _cores -= item.price;
+            item.price *= 2;
+            item.level++;
+
+            int upgradesCount = upgrades.Count;
+            for (int i = 0; i < upgradesCount; i++)
+            {
+                if (upgrades[i].title == itemName)
+                {
+                    upgrades[i] = item;
+                    return;
+                }
+            }
+
+            int weaponsCount = weapons.Count;
+            for (int i = 0; i < weaponsCount; i++)
+            {
+                if (weapons[i].title == itemName)
+                {
+                    weapons[i] = item;
+                    return;
+                }
+            }
+        }
+    }
+
+    public bool CanAffordItem(string itemName)
+    {
+        return GetItem(itemName).price <= cores;
+    }
+
+    public Item GetItem(string name)
+    {
+        int upgradesCount = upgrades.Count;
+        for (int i = 0; i < upgradesCount; i++)
+        {
+            if (upgrades[i].title == name)
+            {
+                return upgrades[i];
+            }
+        }
+
+        int weaponsCount = weapons.Count;
+        for (int i = 0; i < weaponsCount; i++)
+        {
+            if (weapons[i].title == name)
+            {
+                return weapons[i];
+            }
+        }
+
+        Debug.LogError("Could not find item: " + name);
+        return new Item();
     }
 
     private void SaveToFile()

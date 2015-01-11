@@ -10,7 +10,7 @@ PlayerSettings:
   targetGlesGraphics: 1
   targetResolution: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: Blackmodule Studio
   productName: KATT 2
   defaultCursor: {fileID: 2800000, guid: 44b3b32baa7a808418b6269fa466f8c4, type: 3}
   cursorHotspot: {x: 16, y: 16}
