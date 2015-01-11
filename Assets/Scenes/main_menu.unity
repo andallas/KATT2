@@ -589,52 +589,62 @@ MonoBehaviour:
     price: 500
     level: 0
     type: 0
+    equipped: 0
   - title: Fire Rate
     description: Increases the primary weapons fire rate
     price: 500
     level: 0
     type: 0
+    equipped: 0
   - title: Energy
     description: Increases the energy capacity of the ship
     price: 500
     level: 0
     type: 0
+    equipped: 0
   - title: Speed
     description: Increases the ships movement speed
     price: 500
     level: 0
     type: 0
+    equipped: 0
   - title: Drone
     description: Adds an attack drone
     price: 500
     level: 0
     type: 0
+    equipped: 0
   weapons:
   - title: Blaster
-    description: 
-    price: 0
+    description: A standard blaster turret
+    price: 500
     level: 0
     type: 1
+    equipped: 0
   - title: Laser
-    description: 
-    price: 0
+    description: A powerful stream of particles
+    price: 500
     level: 0
     type: 1
+    equipped: 0
   - title: Spread Shot
-    description: 
-    price: 0
+    description: A shotgun-like blaster
+    price: 500
     level: 0
     type: 1
+    equipped: 0
   - title: Bomb
-    description: 
-    price: 0
+    description: A secondary weapon with a large blast radius
+    price: 500
     level: 0
     type: 1
+    equipped: 0
   - title: Mine
-    description: 
-    price: 0
+    description: A stationary explosive that detonates on contact
+    price: 500
     level: 0
     type: 1
+    equipped: 0
 --- !u!4 &293936468
 Transform:
   m_ObjectHideFlags: 0

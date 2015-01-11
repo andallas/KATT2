@@ -216,6 +216,7 @@ public class GameManager : MonoBehaviour
             {
                 if (upgrades[i].title == itemName)
                 {
+                    item.equipped = false;
                     upgrades[i] = item;
                     return;
                 }
@@ -226,10 +227,23 @@ public class GameManager : MonoBehaviour
             {
                 if (weapons[i].title == itemName)
                 {
+                    item.equipped = true;
                     weapons[i] = item;
                     return;
                 }
             }
+        }
+    }
+
+    public void EquipWeapon(string weaponName)
+    {
+        Item item = GetItem(weaponName);
+        int weaponsCount = weapons.Count;
+        for (int i = 0; i < weaponsCount; i++)
+        {
+            item = weapons[i];
+            item.equipped = weapons[i].title == weaponName;
+            weapons[i] = item;
         }
     }
 
