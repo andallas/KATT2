@@ -8,7 +8,7 @@ public class StoreMenuManager : MonoBehaviour
 {
     public GameObject currentPanel { get { return _currentPanel; } set { _currentPanel = value; } }
     public List<GameObject> menuList, upgradesList, weaponsList;
-    public List<Sprite> buttons, stars;
+    public List<Sprite> purchaseButtons, equipButtons, stars;
 
     private GameObject _currentPanel;
     private Dictionary<string, GameObject> menuPanels, upgrades, weapons;
@@ -52,9 +52,9 @@ public class StoreMenuManager : MonoBehaviour
 
         foreach (KeyValuePair<string, GameObject> weapon in weapons)
         {
-            string itemName = weapon.Value.transform.GetChild(1).GetComponent<Text>().text;
-            weapon.Value.transform.GetChild(2).GetComponent<Text>().text = GameManager.Instance.GetItem(itemName).description;
-            weapon.Value.transform.GetChild(3).GetComponent<Text>().text = "$" + GameManager.Instance.GetItem(itemName).price;
+            string itemName = weapon.Value.transform.GetChild(2).GetComponent<Text>().text;
+            weapon.Value.transform.GetChild(3).GetComponent<Text>().text = GameManager.Instance.GetItem(itemName).description;
+            weapon.Value.transform.GetChild(4).GetComponent<Text>().text = "$" + GameManager.Instance.GetItem(itemName).price;
         }
         ActivateCurrentPanel(currentPanel.name);
     }
@@ -76,8 +76,8 @@ public class StoreMenuManager : MonoBehaviour
         {
             GameManager.Instance.PurchaseItem(upgrade);
             UpdateAllPurchaseButtons(upgrades);
-            UpdatePurchasePrice(upgrade, upgrades);
-            UpdatePurchaseLevel(upgrade, upgrades);
+            UpdateUpgradePurchasePrice(upgrade, upgrades);
+            UpdateUpgradePurchaseLevel(upgrade, upgrades);
         }
     }
 
@@ -87,8 +87,18 @@ public class StoreMenuManager : MonoBehaviour
         {
             GameManager.Instance.PurchaseItem(weapon);
             UpdateAllPurchaseButtons(weapons);
-            UpdatePurchasePrice(weapon, weapons);
-            UpdatePurchaseLevel(weapon, weapons);
+            UpdateWeaponPurchasePrice(weapon, weapons);
+            UpdateWeaponPurchaseLevel(weapon, weapons);
+            EquipWeapon(weapon);
+        }
+    }
+
+    public void EquipWeapon(string weapon)
+    {
+        if (GameManager.Instance.GetItem(weapon).level > 0)
+        {
+            GameManager.Instance.EquipWeapon(weapon);
+            UpdateAllWeaponEquipButtons(weapons);
         }
     }
 
@@ -124,26 +134,26 @@ public class StoreMenuManager : MonoBehaviour
         {
             if (GameManager.Instance.GetItem(go.Key).level >= 3)
             {
-                go.Value.transform.GetChild(0).GetComponent<Image>().sprite = buttons[1];
+                go.Value.transform.GetChild(0).GetComponent<Image>().sprite = purchaseButtons[1];
                 go.Value.transform.GetChild(0).GetComponent<Button>().interactable = false;
             }
             else
             {
                 if (GameManager.Instance.CanAffordItem(go.Key))
                 {
-                    go.Value.transform.GetChild(0).GetComponent<Image>().sprite = buttons[0];
+                    go.Value.transform.GetChild(0).GetComponent<Image>().sprite = purchaseButtons[0];
                     go.Value.transform.GetChild(0).GetComponent<Button>().interactable = true;
                 }
                 else
                 {
-                    go.Value.transform.GetChild(0).GetComponent<Image>().sprite = buttons[1];
+                    go.Value.transform.GetChild(0).GetComponent<Image>().sprite = purchaseButtons[1];
                     go.Value.transform.GetChild(0).GetComponent<Button>().interactable = false;
                 }
             }
         }
     }
 
-    private void UpdatePurchasePrice(string itemName, Dictionary<string, GameObject> items)
+    private void UpdateUpgradePurchasePrice(string itemName, Dictionary<string, GameObject> items)
     {
         string priceText = "$";
 
@@ -159,7 +169,7 @@ public class StoreMenuManager : MonoBehaviour
         items[itemName].transform.GetChild(3).GetComponent<Text>().text = priceText;
     }
 
-    private void UpdatePurchaseLevel(string itemName, Dictionary<string, GameObject> items)
+    private void UpdateUpgradePurchaseLevel(string itemName, Dictionary<string, GameObject> items)
     {
         Item item = GameManager.Instance.GetItem(itemName);
         GameObject star = items[itemName].transform.GetChild(4).gameObject;
@@ -171,6 +181,62 @@ public class StoreMenuManager : MonoBehaviour
         else
         {
             star.GetComponent<Image>().sprite = stars[item.level];
+        }
+    }
+
+    private void UpdateWeaponPurchasePrice(string itemName, Dictionary<string, GameObject> items)
+    {
+        string priceText = "$";
+
+        Item item = GameManager.Instance.GetItem(itemName);
+        if (item.level >= 3)
+        {
+            priceText = "Sold Out";
+        }
+        else
+        {
+            priceText += item.price;
+        }
+        items[itemName].transform.GetChild(4).GetComponent<Text>().text = priceText;
+    }
+
+    private void UpdateWeaponPurchaseLevel(string itemName, Dictionary<string, GameObject> items)
+    {
+        Item item = GameManager.Instance.GetItem(itemName);
+        GameObject star = items[itemName].transform.GetChild(5).gameObject;
+        if (item.level > 0)
+        {
+            star.SetActive(true);
+            star.GetComponent<Image>().sprite = stars[item.level - 1];
+        }
+        else
+        {
+            star.GetComponent<Image>().sprite = stars[item.level];
+        }
+    }
+
+    private void UpdateAllWeaponEquipButtons(Dictionary<string, GameObject> gameObjects)
+    {
+        foreach (KeyValuePair<string, GameObject> go in gameObjects)
+        {
+            if (GameManager.Instance.GetItem(go.Key).level > 0)
+            {
+                if (GameManager.Instance.GetItem(go.Key).equipped)
+                {
+                    go.Value.transform.GetChild(1).GetComponent<Image>().sprite = equipButtons[0];
+                    go.Value.transform.GetChild(1).GetComponent<Button>().interactable = false;
+                }
+                else
+                {
+                    go.Value.transform.GetChild(1).GetComponent<Image>().sprite = equipButtons[1];
+                    go.Value.transform.GetChild(1).GetComponent<Button>().interactable = true;
+                }
+            }
+            else
+            {
+                go.Value.transform.GetChild(1).GetComponent<Image>().sprite = equipButtons[1];
+                go.Value.transform.GetChild(1).GetComponent<Button>().interactable = false;
+            }
         }
     }
 }

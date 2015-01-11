@@ -12,14 +12,16 @@ namespace Helper
         public int price;
         public int level;
         public ItemType type;
+        public bool equipped;
 
-        Item(string title, string description, int price, int level, ItemType type)
+        Item(string title, string description, int price, int level, ItemType type, bool equipped)
         {
             this.title = title;
             this.description = description;
             this.price = price;
             this.level = level;
             this.type = type;
+            this.equipped = equipped;
         }
 
         public override string ToString()
@@ -28,7 +30,8 @@ namespace Helper
                     "\nDescription: " + this.description +
                     "\nPrice: " + this.price +
                     "\nLevel: " + this.level +
-                    "\nType: " + this.type;
+                    "\nType: " + this.type +
+                    "\nEquipped: " + this.equipped;
         }
     };
 }
