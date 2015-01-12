@@ -109,8 +109,21 @@ public class Player : MonoBehaviour
 
     public void DeathSequence()
     {
-        this.GetComponent<Renderer>().enabled = false;
-        this.GetComponent<Collider2D>().enabled = false;
+        GetComponent<ScreenShake>().CameraShake();
+        
+        Renderer[] renderers = this.GetComponentsInChildren<Renderer>();
+        int rendLength = renderers.Length;
+        for (int i = 0; i < rendLength; i++)
+        {
+            renderers[i].enabled = false;
+        }
+
+        Collider2D[] colliders = this.GetComponentsInChildren<Collider2D>();
+        int colLength = colliders.Length;
+        for (int j = 0; j < colLength; j++)
+        {
+            colliders[j].enabled = false;
+        }
     }
 
     public void Invulnerable(float seconds)
