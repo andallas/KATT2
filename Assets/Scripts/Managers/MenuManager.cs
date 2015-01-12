@@ -89,7 +89,7 @@ public class MenuManager : MonoBehaviour
         switch(menu)
         {
             case "Graphics Panel":
-            case "Game Panel":
+            case "Gameplay Panel":
                 Debug.LogWarning(menu + " not implemented yet");
                 break;
             default: break;
