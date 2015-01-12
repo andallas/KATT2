@@ -15,6 +15,7 @@ GameObject:
   - 114: {fileID: 11457518}
   - 114: {fileID: 11404428}
   - 114: {fileID: 11474164}
+  - 114: {fileID: 11418374}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -126,6 +127,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
   fireRate: .25
+--- !u!114 &11418374
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bedc8be240b5c6b4ba39123aaee4f35d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldLevel: 0
+  effects:
+  - {fileID: 171368, guid: c15fd30b26e016d4eb87b29116555d5e, type: 2}
+  - {fileID: 191914, guid: cec610dd2836bb04fab61722f61c032c, type: 2}
+  - {fileID: 178246, guid: 692a5e49127912d489d1f3775339c999, type: 2}
 --- !u!114 &11426932
 MonoBehaviour:
   m_ObjectHideFlags: 1

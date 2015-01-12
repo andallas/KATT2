@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Helper;
+
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -8,8 +11,7 @@ public class Player : MonoBehaviour
 
     private Vector2 movement;
     private Transform _transform;
-    private float halfWidth;
-    private float halfHeight;
+    private float halfWidth, halfHeight;
     private GameObject _invulnerableEffect;
     private Animator animator;
 
@@ -23,6 +25,34 @@ public class Player : MonoBehaviour
         halfWidth = renderer.bounds.size.x / 2;
         halfHeight = renderer.bounds.size.y / 2;
         animator = GetComponentInChildren<Animator>();
+    }
+
+    void OnEnable()
+    {
+        int upgradesCount = GameManager.Instance.upgrades.Count;
+        for (int i = 0; i < upgradesCount; i++)
+        {
+            Item item = GameManager.Instance.upgrades[i];
+            switch(item.title)
+            {
+                case "Shield":
+                    Shield(item.level);
+                    break;
+                case "Fire Rate":
+                    FireRate(item.level);
+                    break;
+                case "Energy":
+                    Energy(item.level);
+                    break;
+                case "Speed":
+                    Speed(item.level);
+                    break;
+                case "Drone":
+                    Drone(item.level);
+                    break;
+                default: break;
+            }
+        }
     }
 
     void Update()
@@ -109,8 +139,6 @@ public class Player : MonoBehaviour
 
     public void DeathSequence()
     {
-        GetComponent<ScreenShake>().CameraShake();
-        
         Renderer[] renderers = this.GetComponentsInChildren<Renderer>();
         int rendLength = renderers.Length;
         for (int i = 0; i < rendLength; i++)
@@ -130,9 +158,26 @@ public class Player : MonoBehaviour
     {
         this.GetComponent<Health>().Invulnerable(true);
         _invulnerableEffect.SetActive(true);
-        _invulnerableEffect.GetComponent<PowerupFX>().Enable(seconds);
+        _invulnerableEffect.GetComponent<InvulnerabilityFX>().Enable(seconds);
         StartCoroutine(SetInvulnerable(seconds));
     }
+
+    public void Shield(int level)
+    {
+        GetComponent<Shield>().Enable(level);
+    }
+
+    public void FireRate(int level)
+    { }
+
+    public void Energy(int level)
+    { }
+
+    public void Speed(int level)
+    { }
+
+    public void Drone(int level)
+    { }
 
     private IEnumerator SetInvulnerable(float seconds)
     {

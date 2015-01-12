@@ -30,14 +30,14 @@ public class GameManager : MonoBehaviour
     private int _highScore = 0;
     private int _extraLives = 3;
     private int _currentLevel = 2;
-    private int _cores = 1000;
+    private int _cores = 10000;
     private Player _player;
     private GameObject playerObject;
     private int maxLives = 5;
     private int extraLifeBonus = 10000;
 
     private JSONClass saveData;
-    private const string VERSION = "v0.0.2";
+    private const string VERSION = "v0.0.3";
     private string savePath;
 
     void Awake()
