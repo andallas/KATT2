@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 159474, guid: 50ffc466ab4431e429865b369eb65ef9, type: 2}
-  fireRate: .25
+  fireRate: .5
 --- !u!114 &155891588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2308,6 +2308,10 @@ Prefab:
     - target: {fileID: 145108, guid: cffe3d4ff0b5c8740a51da03a64bbf22, type: 2}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 11404428, guid: cffe3d4ff0b5c8740a51da03a64bbf22, type: 2}
+      propertyPath: fireRate
+      value: .5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cffe3d4ff0b5c8740a51da03a64bbf22, type: 2}

@@ -3,7 +3,7 @@
 public class Weapon : MonoBehaviour
 {
     public GameObject projectilePrefab;
-    public float fireRate = 0.25f;
+    public float fireRate = 0.5f;
 
     private float shootCooldown;
 

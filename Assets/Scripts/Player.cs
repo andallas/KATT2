@@ -168,7 +168,10 @@ public class Player : MonoBehaviour
     }
 
     public void FireRate(int level)
-    { }
+    {
+        Weapon weapon = GetComponent<Weapon>();
+        weapon.fireRate /= level + 1;
+    }
 
     public void Energy(int level)
     { }
