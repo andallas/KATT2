@@ -28,7 +28,18 @@ public class Health : MonoBehaviour
     {
         if(!isInvunlerable)
         {
+            Shield shield = GetComponent<Shield>();
+            if(shield != null)
+            {
+                shield.Damage(ref damageCount);
+            }
+
             healthPoints -= damageCount;
+
+            if (!isEnemy)
+            {
+                GetComponent<ScreenShake>().CameraShake();
+            }
         }
 
         if(healthPoints <= 0)
